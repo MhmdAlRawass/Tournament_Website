@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-bg: #0b2942;
+  --card-blue: #1d3557; 
+  --highlight-yellow: #fbbf24;
+  --accent-cyan: #00ffe1; 
+  --text-light: #ffffff;
+  --text-muted: #9ca3af;
+  --rank-box: #1e3a5f;
+  --card-bg: #1f2937; 
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --card-hover-shadow: rgba(0, 0, 0, 0.25);
+  --gradient-btn: linear-gradient(to right, #ff5c8d, #ff9966);
+}
+
+
+body {
+    margin: 0;
+    padding: 0; 
+    background-color: var(--primary-bg);
+}
+
+h1, h2, h3{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+p, span, li{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}

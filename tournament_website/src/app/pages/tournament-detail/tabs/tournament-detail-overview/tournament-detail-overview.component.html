@@ -1,0 +1,80 @@
+<div class="overview-container" *ngIf="tournament; else notFound">
+    <div class="first-row">
+        @for (rank of rankingList; track $index) {
+            <div class="rank-card">
+                <img [src]="'assets/ranking/' + rank.rank + getSuffix(rank.rank) + '.png'" 
+                    [alt]="rank.rank + ' Place'" 
+                    class="rank-image" />
+
+                <div class="rank-line">
+                    <p>{{ rank.rank + getSuffix(rank.rank) }}</p>
+                    <h3>{{ rank.prize ? (rank.prize | currency:'USD':'symbol':'1.1-1') : '$0.0' }}</h3>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <div class="second-row">
+
+    <!-- Format Section -->
+    <div class="format-section">
+        <h2 class="section-title">Format</h2>
+        <div class="format-container">
+        @for (format of formatList; track $index) {
+            <div class="format-card">
+            <mat-icon>{{ format.icon }}</mat-icon>
+            <h3>{{ format.title }}</h3>
+            <p>{{ format.text }}</p>
+            </div>
+        }
+        </div>
+    </div>
+
+    <!-- Participants Section -->
+    <div class="participants-section">
+        <h2 class="section-title">Participants</h2>
+        <div class="participants-container">
+        <div class="participants-card">
+            @for (p of participantList; track $index) {
+            <div class="p-line">
+                <p>{{ p.title }}</p>
+                <span>{{ p.count }}</span>
+            </div>
+            }
+        </div>
+        </div>
+    </div>
+
+    </div>
+
+    
+    <div class="third-row">
+        <div class="info-section">
+            <h2>Information</h2>
+            <ul>
+            <li *ngFor="let info of informationList">{{ info }}</li>
+            </ul>
+        </div>
+
+        <div class="rules-section">
+            <h2>Rules</h2>
+            <ul>
+            <li *ngFor="let rule of rulesList">{{ rule }}</li>
+            </ul>
+        </div>
+
+        <div class="prize-claim-section">
+            <h2>Prize Claim</h2>
+            <ul>
+            <li *ngFor="let claim of prizeClaimList">{{ claim }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<ng-template #notFound>
+  <div class="container">
+    <p>Tournament not found.</p>
+  </div>
+</ng-template>

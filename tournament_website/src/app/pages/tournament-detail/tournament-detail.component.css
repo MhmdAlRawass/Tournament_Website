@@ -1,0 +1,36 @@
+:root {
+  --primary-bg: #0b2942;
+  --card-blue: #0e3a5e;
+  --highlight-yellow: #ffe100;
+  --text-light: #ffffff;
+  --text-muted: #d1d5db;
+  --accent-cyan: #00f0ff;
+  --rank-box: #145374;
+  --gradient-btn: linear-gradient(135deg, #ff44aa, #8c1aff);
+  --card-shadow: rgba(0, 0, 0, 0.15);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-bg);
+  padding: 2rem;
+}
+
+.header {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tab-content {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

@@ -1,0 +1,35 @@
+<div class="card-header">
+    <div class="card-top">
+      <div class="header-left">
+        <div class="header-left-top">
+          <h1>{{ tournament.name }}</h1>
+        </div>
+        <div class="header-left-bottom">
+          <div class="info-box">
+            <mat-icon class="icon">access_time</mat-icon>
+            <p>Starts in <span class="highlight">10d 2H 18M</span></p>
+          </div>
+
+          <div class="info-box">
+            <mat-icon class="icon">calendar_today</mat-icon>
+            <p>{{ tournament.createdAt | date: 'medium' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <h2 class="prize">${{ tournament.prizePool }}</h2>
+        <button class="join-btn" (click)="onPressedJoin(tournament)">JOIN NOW!</button>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <ul>
+        @for (tab of tabsList; track $index) {
+            <li [ngClass]="{ active: selectedTab === tab }" (click)="onSelectTab(tab)">
+                {{ tab | uppercase }}
+            </li>
+        }
+      </ul>
+    </div>
+  </div>

@@ -1,0 +1,21 @@
+<mat-nav-list class="modern-sidebar">
+  <div class="sidebar-header">
+    <img src="assets/logo.png" alt="Logo" class="logo">
+    <h2 class="app-title">{{appName}}</h2>
+  </div>
+  <a mat-list-item
+     routerLink="/admin/dashboard"
+     routerLinkActive="active-link"
+     [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>dashboard</mat-icon>
+    <span>Dashboard</span>
+  </a>
+
+  <a mat-list-item
+     routerLink="/admin/tournaments"
+     routerLinkActive="active-link"
+     [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>emoji_events</mat-icon>
+    <span>Tournaments</span>
+  </a>
+</mat-nav-list>

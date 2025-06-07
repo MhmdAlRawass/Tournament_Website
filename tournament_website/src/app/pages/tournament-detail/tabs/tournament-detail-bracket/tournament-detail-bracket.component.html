@@ -1,0 +1,30 @@
+<div class="bracket">
+  <div class="round" *ngFor="let round of rounds; let roundIndex = index">
+    <div class="match-group">
+      <ng-container *ngFor="let match of round; let matchIndex = index">
+        <div class="match-wrapper">
+          <!-- Match Card -->
+          <div class="match">
+            <div class="player player-top">
+              <span>{{ match.team1 }}</span>
+              <span class="score">{{ match.score1 }}</span>
+            </div>
+            <div class="player player-bottom">
+              <span>{{ match.team2 }}</span>
+              <span class="score">{{ match.score2 }}</span>
+            </div>
+          </div>
+
+          <!-- Connector for pairs going to next round -->
+          <div
+            *ngIf="roundIndex < rounds.length - 1 && matchIndex % 2 === 0"
+            class="connector-group">
+            <div class="connector-vertical"></div>
+            <div class="connector-horizontal connector-top"></div>
+            <div class="connector-horizontal connector-bottom"></div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<!-- Header Section -->
+<div class="table-header">
+  <h2>Tournaments</h2>
+  <div>
+    <button mat-raised-button color="primary" (click)="openAddDialog()">
+        <mat-icon>add</mat-icon> Add Tournament
+    </button>
+    <app-tournament-dialog (closed)="onDialogClosed($event)"></app-tournament-dialog>
+  </div>
+</div>
+
+<!-- Table -->
+<table mat-table [dataSource]="tournaments" class="mat-elevation-z2">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Groups Nb Column -->
+  <ng-container matColumnDef="groups">
+    <th mat-header-cell *matHeaderCellDef> Groups </th>
+    <td mat-cell *matCellDef="let element"> {{element.groups}} </td>
+  </ng-container>
+
+  <!-- Teams Nb Column -->
+  <ng-container matColumnDef="teams">
+    <th mat-header-cell *matHeaderCellDef> Teams </th>
+    <td mat-cell *matCellDef="let element"> {{element.teams}} </td>
+  </ng-container>
+
+  <!-- Category Column -->
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef> Category </th>
+    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+  </ng-container>
+
+  <!-- Entry Fee Column -->
+  <ng-container matColumnDef="entryFee">
+    <th mat-header-cell *matHeaderCellDef> Entry Fee </th>
+    <td mat-cell *matCellDef="let element"> {{element.entryFee}} </td>
+  </ng-container>
+
+  <!-- Price Pool Column -->
+  <ng-container matColumnDef="pricePool">
+    <th mat-header-cell *matHeaderCellDef> Price Pool </th>
+    <td mat-cell *matCellDef="let element"> {{element.pricePool}} </td>
+  </ng-container>
+
+  <!-- Date Column -->
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef> Created At </th>
+    <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" (click)="editTournament(element)">
+        <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteTournament(element)">
+        <mat-icon>delete</mat-icon>
+        </button>
+    </td>
+    </ng-container>
+
+
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

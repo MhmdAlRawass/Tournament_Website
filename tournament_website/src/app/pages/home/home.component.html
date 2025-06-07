@@ -1,0 +1,58 @@
+<div class="tournament-container">
+  <div class="tournament-header">
+    <h1>Welcome to the Tournament Page</h1>
+    <p>Here you can find all the latest tournaments and events.</p>
+  </div>
+  <div class="tournament-card" *ngFor="let t of tournaments">
+    <div class="tournament-left">
+      <img class="tournament-logo" src='assets/images/game-img-1.png' alt="Tournament Logo" />
+    </div>
+
+    <div class="tournament-center">
+      <h2 class="tournament-title">{{ t.name }}</h2>
+
+      <div class="info-line">
+        <span class="icon">⏳</span>
+        <span class="countdown">Starts in {{ t.startTime }}</span>
+      </div>
+
+      <div class="info-line">
+        <span class="icon"><mat-icon>calendar_today</mat-icon></span>
+        <span class="start-time">{{ t.startTime | date:'medium' }}</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <p class="stat-label">Entry/Player</p>
+          <p class="stat-value">${{ t.entryFee }}</p>
+        </div>
+        <div class="stat-box">
+          <p class="stat-label">Team Size</p>
+          <p class="stat-value">2 vs 2</p>
+        </div>
+        <div class="stat-box">
+          <p class="stat-label">Max Teams</p>
+          <p class="stat-value">16</p>
+        </div>
+        <div class="stat-box">
+          <p class="stat-label">Enrolled</p>
+          <p class="stat-value">{{t.registeredParticipants}}</p>
+        </div>
+        <div class="stat-box">
+          <p class="stat-label">Category </p>
+          <p class="stat-value">{{t.category}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tournament-right">
+      <p class="prize-label">🏆 PRIZE</p>
+      <p class="prize-amount">{{ t.prizePool }}</p>
+      <button mat-raised-button class="view-btn" (click)="viewTournamentDetails(t)">
+        View Tournament
+      </button>
+      <p class="prize-note">Top 3 Players Win<br />a Cash Prize</p>
+    </div>
+  </div>
+
+</div>

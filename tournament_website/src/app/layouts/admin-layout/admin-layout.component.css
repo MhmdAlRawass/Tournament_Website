@@ -1,0 +1,17 @@
+body{
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.sidenav-container {
+  height: 100vh; 
+}
+
+mat-sidenav{
+  width: 300px;
+  height: 100%;
+}
+
+.content {
+  padding: 20px;
+}

@@ -1,0 +1,24 @@
+<div *ngIf="tournament; else notFound" class="container">
+
+  <!-- Header card -->
+  <div class="header">
+    <app-tournament-detail-header [tournament]="tournament" (tabChanged)="changeTab($event)"></app-tournament-detail-header>
+  </div>
+  <!-- ------------ -->
+
+  <!-- Body -->
+  <div class="tab-content">
+    <app-tournament-detail-overview *ngIf="selectedTab === 'overview'" [tournament]="tournament"></app-tournament-detail-overview>
+    <app-tournament-detail-bracket *ngIf="selectedTab === 'bracket'" [tournament]="tournament"></app-tournament-detail-bracket>
+    <app-tournament-detail-participants *ngIf="selectedTab === 'participants'" [tournament]="tournament"></app-tournament-detail-participants>
+    <app-tournament-detail-matches *ngIf="selectedTab === 'matches'" [tournament]="tournament"></app-tournament-detail-matches>
+  </div>
+
+</div>
+
+
+<ng-template #notFound>
+  <div class="container">
+    <p>Tournament not found.</p>
+  </div>
+</ng-template>
