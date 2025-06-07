@@ -1,30 +1,37 @@
-<div class="bracket">
-  <div class="round" *ngFor="let round of rounds; let roundIndex = index">
-    <div class="match-group">
-      <ng-container *ngFor="let match of round; let matchIndex = index">
-        <div class="match-wrapper">
-          <!-- Match Card -->
-          <div class="match">
-            <div class="player player-top">
-              <span>{{ match.team1 }}</span>
-              <span class="score">{{ match.score1 }}</span>
-            </div>
-            <div class="player player-bottom">
-              <span>{{ match.team2 }}</span>
-              <span class="score">{{ match.score2 }}</span>
+<div *ngFor="let groupId of objectKeys(groupedMatches)" class="group-block">
+  <h2 class="group-title">Group {{ groupId }}</h2>
+
+  <div class="bracket-wrapper">
+    <div *ngFor="let round of getSortedRounds(groupId)" class="bracket-column">
+      <h3 class="round-title">Round {{ round }}</h3>
+
+      <div class="bracket-matches">
+        <div *ngFor="let match of groupedMatches[groupId][round]" class="match-card">
+          <!-- Player 1 Row -->
+          <div class="match-row">
+            <span class="player-name">
+              {{ getPlayerName(match.player1_id) }}
+            </span>
+            <div class="player-sets">
+              <span class="set" *ngFor="let set of getSetScores(match.scores_csv)">
+                {{ set[0] }}
+              </span>
             </div>
           </div>
 
-          <!-- Connector for pairs going to next round -->
-          <div
-            *ngIf="roundIndex < rounds.length - 1 && matchIndex % 2 === 0"
-            class="connector-group">
-            <div class="connector-vertical"></div>
-            <div class="connector-horizontal connector-top"></div>
-            <div class="connector-horizontal connector-bottom"></div>
+          <!-- Player 2 Row -->
+          <div class="match-row">
+            <span class="player-name">
+              {{ getPlayerName(match.player2_id) }}
+            </span>
+            <div class="player-sets">
+              <span class="set" *ngFor="let set of getSetScores(match.scores_csv)">
+                {{ set[1] }}
+              </span>
+            </div>
           </div>
         </div>
-      </ng-container>
+      </div>
     </div>
   </div>
 </div>

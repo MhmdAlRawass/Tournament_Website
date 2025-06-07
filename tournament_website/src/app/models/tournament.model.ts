@@ -16,7 +16,7 @@ export interface Tournament {
   description?: string;
 }
 
-export interface Participant {
-  id: number;
-  name: string;
-}
+// export interface Participant {
+//   id: number;
+//   name: string;
+// }

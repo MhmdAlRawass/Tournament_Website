@@ -1,6 +1,12 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
-import { Match } from '../../../../models/match.model';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import {
+  Match,
+  MatchesByGroup,
+  Participant,
+} from '../../../../models/match.model';
 import { CommonModule } from '@angular/common';
+import { TournamentService } from '../../../../services/tournament.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-tournament-detail-bracket',
@@ -8,32 +14,76 @@ import { CommonModule } from '@angular/common';
   templateUrl: './tournament-detail-bracket.component.html',
   styleUrl: './tournament-detail-bracket.component.css',
 })
-export class TournamentDetailBracketComponent {
+export class TournamentDetailBracketComponent implements OnInit {
   @Input() tournament: any;
 
-  rounds: Match[][] = [
-    [
-      // Round 1
-      { team1: 'Abdul Dowdy', score1: 1, team2: 'Alva Allred', score2: 3 },
-      { team1: 'Bill Lackey', score1: 1, team2: 'Sue Plante', score2: 3 },
-      { team1: 'Abdul Dowdy', score1: 1, team2: 'Mittie Abrams', score2: 3 },
-      { team1: 'Adela Peters', score1: 1, team2: 'Owen Boone', score2: 3 },
-    ],
-    [
-      // Round 2
-      { team1: 'Abdul Dowdy', score1: 1, team2: 'Alva Allred', score2: 3 },
-      { team1: 'Abdul Dowdy', score1: 1, team2: 'Alva Allred', score2: 3 },
-    ],
-    [
-      // Final
-      { team1: 'Abdul Dowdy', score1: 1, team2: 'Alva Allred', score2: 3 },
-    ],
-  ];
-  connectorHeight = 100; // consistent height for SVG
+  objectKeys = Object.keys;
 
-  generateConnectorPath(matchIndex: number): string {
-    // Draw a curve from current match to approx center of next
-    const y = 50 + (matchIndex % 2 === 1 ? 30 : -30);
-    return `M0 50 C 40 50, 60 ${y}, 100 ${y}`;
+  matches: Match[] = [];
+  participants: Participant[] = [];
+  groupedMatches: MatchesByGroup = {};
+
+  constructor(private tournamentService: TournamentService) {
+    console.log('COnstructor loaded');
+  }
+
+  ngOnInit(): void {
+    if (!this.tournament.id) return;
+
+    // forkJoin for loading both in same time
+    forkJoin({
+      matches: this.tournamentService.getMatches(this.tournament.id),
+      participants: this.tournamentService.getParticipants(this.tournament.id),
+    }).subscribe({
+      next: ({ matches, participants }) => {
+        this.matches = matches;
+        this.groupedMatches =
+          this.tournamentService.groupMatchesByGroupAndRound(matches);
+        console.log(this.groupedMatches);
+        this.participants = participants;
+      },
+      error: (err) => {
+        console.error('Error loading data: ', err);
+      },
+    });
+
+    // this.tournamentService.getMatches(this.tournament.id).subscribe({
+    //   next: (matches) => {
+    //     this.matches = matches;
+    //   },
+    //   error: (err) => {
+    //     console.log(`Error Occured while loading matches :`, err);
+    //   },
+    // });
+
+    // this.tournamentService.getParticipants(this.tournament.id).subscribe({
+    //   next: (participants) => {
+    //     console.log('parti: ' + this.tournamentService.participants);
+    //   },
+    //   error: (err) => {
+    //     console.log('Error in loading participant: ', err);
+    //   },
+    // });
+  }
+  getPlayerName(playerId: number): string {
+    const participant = this.participants.find(
+      (p) => p.group_player_ids[0] === playerId
+    );
+    return participant ? participant.name : 'Unknown';
+  }
+
+  getSortedRounds(groupId: string): number[] {
+    return Object.keys(this.groupedMatches[groupId])
+      .map(Number)
+      .sort((a, b) => a - b);
+  }
+
+  getSetScores(scores_csv: string): [string, string][] {
+    if (!scores_csv) return [];
+
+    return scores_csv.split(',').map((set) => {
+      const [p1, p2] = set.split('-').map((s) => s.trim());
+      return [p1 || '0', p2 || '0'];
+    });
   }
 }

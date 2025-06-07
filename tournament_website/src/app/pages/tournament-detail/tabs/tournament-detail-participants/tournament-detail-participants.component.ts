@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Participant } from '../../../../models/tournament.model';
 import { TournamentService } from '../../../../services/tournament.service';
+import { Participant } from '../../../../models/match.model';
 
 @Component({
   selector: 'app-tournament-detail-participants',
@@ -19,10 +19,7 @@ export class TournamentDetailParticipantsComponent implements OnInit {
     if (this.tournament.id) {
       this.tournamentService.getParticipants(this.tournament.id).subscribe({
         next: (data) => {
-          this.participants = data.map((p: any) => ({
-            id: p.participant.id,
-            name: p.participant.name,
-          }));
+          this.participants = data;
         },
         error: (err) => {
           console.error('Error fetching participants:', err);
