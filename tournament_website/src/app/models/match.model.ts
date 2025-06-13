@@ -21,3 +21,17 @@ export interface MatchesByGroup {
     [round: number]: Match[];
   };
 }
+
+export interface ParticipantStat {
+  group_id: number;
+  participant_id: number;
+  group_player_ids: number[];
+  name: string;
+  setWins: number;
+  matchWins: number;
+  matchLosses: number;
+  matchTies: number;
+  points: number;
+  history: string[];
+  totalScore: number;
+}

@@ -1,14 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Tournament } from '../models/tournament.model';
 import { Match, MatchesByGroup, Participant } from '../models/match.model';
 
 @Injectable({ providedIn: 'root' })
 export class TournamentService {
   private tournaments: Tournament[] = [];
-  public participants: Participant[] = [];
+
+  private participants: Participant[] = [];
+
   private matches: Match[] = [];
+
+  private participantsStat: any[] = [];
+
+  private matchesSubject = new BehaviorSubject<Match[]>([]);
+  matches$ = this.matchesSubject.asObservable();
+
+  private participantsSubject = new BehaviorSubject<Participant[]>([]);
+  participants$ = this.participantsSubject.asObservable();
+
+  private statsSubject = new BehaviorSubject<any[]>([]);
+  stats$ = this.statsSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -50,6 +63,46 @@ export class TournamentService {
     };
   }
 
+  // Matches
+  fetchMatches(tid: number): Observable<Match[]> {
+    return this.http
+      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/matches`)
+      .pipe(
+        map((res) => res.map((item) => this.mapToMatch(item.match))),
+        map((matches) => {
+          this.matchesSubject.next(matches);
+          return matches;
+        })
+      );
+  }
+
+  // Participants
+  fetchParticipants(tid: number): Observable<Participant[]> {
+    return this.http
+      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/participants`)
+      .pipe(
+        map((res) =>
+          res.map((item) => this.mapToParticipant(item.participant))
+        ),
+        map((participants) => {
+          this.participantsSubject.next(participants);
+          return participants;
+        })
+      );
+  }
+
+  // Stats
+  fetchStats(tid: number): Observable<any[]> {
+    return this.http
+      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/group-standings`)
+      .pipe(
+        map((res) => {
+          this.statsSubject.next(res);
+          return res;
+        })
+      );
+  }
+
   // get participants
   private mapToParticipant(raw: any): Participant {
     return {
@@ -76,10 +129,16 @@ export class TournamentService {
       );
   }
 
+  // for group stage
   getParticipantById(pid: number): Participant | undefined {
     return (
       this.participants.find((p) => p.group_player_ids[0] === pid) ?? undefined
     );
+  }
+
+  // for final stage
+  getParticipantByIdForFinalStage(pid: number): Participant | undefined {
+    return this.participants.find((p) => p.id === pid) ?? undefined;
   }
 
   // get matches
@@ -125,5 +184,21 @@ export class TournamentService {
     });
 
     return grouped;
+  }
+
+  // get participant statistics
+  getParticipantsStat(tid: number): Observable<any[]> {
+    return this.http
+      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/group-standings`)
+      .pipe(
+        map((res) => {
+          this.participantsStat = res;
+          return res;
+        })
+      );
+  }
+
+  getParticipantStatById(pid: number) {
+    return this.participantsStat.find((p) => pid === p.group_player_ids[0]);
   }
 }

@@ -1,0 +1,103 @@
+.matches-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: var(--primary-bg);
+  border-radius: 8px;
+}
+
+.matches-container h2 {
+  color: var(--accent-cyan);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.group-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--highlight-yellow);
+  padding-left: 12px;
+  padding-right: 6px;
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  width: fit-content;
+}
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--card-blue);
+  box-shadow: 0 2px 8px var(--card-shadow);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.standings-table thead {
+  background-color: var(--card-bg);
+}
+
+.standings-table th,
+.standings-table td {
+  padding: 12px 14px;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.standings-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.standings-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.standings-table th {
+  font-weight: 600;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.standings-table td span {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.standings-table tbody span {
+    width: 20px;
+    height: 20px;
+}
+
+
+.standings-table tbody span .win{
+    background-color: #6bf;
+    
+    
+}
+.standings-table tbody span .tie{
+    background-color: green;
+
+}
+.standings-table tbody span .loss{
+    background-color: #f66;
+}
+.win, .loss, .tie {
+    /* display: inline-flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* width: 24px;    */
+    /* height: 24px;   */
+    /* border-radius: 4px; */
+    /* margin: 0 2px;  */
+    color: black;
+}

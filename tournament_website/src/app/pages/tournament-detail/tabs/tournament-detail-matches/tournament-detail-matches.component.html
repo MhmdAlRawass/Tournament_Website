@@ -1,1 +1,41 @@
-<p>tournament-detail-matches works!</p>
+<div class="matches-container" *ngFor="let groupId of objectKeys(groupedStats); let i = index;">
+    <h2 class="group-title">{{getCustomGroupLabel(i)}}</h2>
+
+    <table class="standings-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Participant</th>
+                <th>Set Wins</th>
+                <th>Set Ties</th>
+                <th>Match W-L-T</th>
+                <th>Pts</th>
+                <th>Match History</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let stat of groupedStats[groupId]">
+                <td>Rank</td>
+                <td>{{stat.name}}</td>
+                <td>{{stat.setWins}}</td>
+                <td>{{stat.matchTies}}</td>
+                <td>{{stat.matchWins}}-{{stat.matchLosses}}-{{stat.matchTies}}</td>
+                <td>{{stat.totalScore}}</td>
+                <td>
+                    <span *ngFor="let result of stat.history">
+                        <span [ngClass]="{
+                            'win': result === 'W',
+                            'loss': result === 'L',
+                            'tie': result === 'T'
+                            
+                        }" >
+                            {{ result.toUpperCase() }}
+                        </span>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

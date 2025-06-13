@@ -62,7 +62,7 @@ export class TournamentDetailOverviewComponent implements OnInit {
 
     this.participantList = [
       { title: 'Registered', count: this.tournament.registeredParticipants },
-      { title: 'Available Slots', count: 15 },
+      // { title: 'Available Slots', count: 15 },
     ];
 
     this.rankingList = [

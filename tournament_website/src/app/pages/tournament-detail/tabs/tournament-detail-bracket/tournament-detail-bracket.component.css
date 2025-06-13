@@ -12,6 +12,46 @@
   --gradient-btn: linear-gradient(to right, #ff5c8d, #ff9966);
 }
 
+/* === TAbs Block === */
+.tabs-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2rem;
+}
+
+.tab-card {
+  color: var(--text-light);
+  background-color: var(--rank-box);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.tab-card:hover, .tab-card.active {
+  background-color: var(--accent-cyan);
+  color: black;
+  transform: scale(1.05);
+}
+
+/* Locked tab styles */
+.tab-card.locked {
+  background-color: var(--text-muted); 
+  color: #777;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.tab-card.locked mat-icon {
+  vertical-align: middle;
+  font-size: 1.2rem;
+  margin-left: 0.25rem;
+}
+
+
 /* === Group Block === */
 .group-block {
   background-color: var(--card-blue);
@@ -127,3 +167,4 @@
   background: var(--rank-box);
   border-radius: 8px;
 }
+

@@ -1,0 +1,31 @@
+<div class="theme theme-dark-trendy fullscreen-container" #fullscreenContainer>
+  <div class="bracket disable-image">
+    <div class="column" *ngFor="let round of bracketData">
+      <div class="match" *ngFor="let match of round.matches" [ngClass]="match.winner === 'top' ? 'winner-top' : 'winner-bottom'">
+        <div class="match-top team">
+          <!-- <span class="image"></span> -->
+          <span class="seed">{{ match.top.seed }}</span>
+          <span class="name">{{ match.top.name }}</span>
+          <span class="score">{{ match.top.score }}</span>
+        </div>
+        <div class="match-bottom team">
+          <!-- <span class="image"></span> -->
+          <span class="seed">{{ match.bottom.seed }}</span>
+          <span class="name">{{ match.bottom.name }}</span>
+          <span class="score">{{ match.bottom.score }}</span>
+        </div>
+
+        <div class="match-lines">
+          <div class="line one"></div>
+          <div class="line two"></div>
+        </div>
+        <div class="match-lines alt">
+          <div class="line one"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="enterFullscreen()">Go FullScreen</button>
+</div>
+
