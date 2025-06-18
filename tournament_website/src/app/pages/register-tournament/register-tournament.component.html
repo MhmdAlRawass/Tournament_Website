@@ -1,68 +1,86 @@
-<form #form="ngForm" (ngSubmit)="onSubmit()" class="registration-form">
-  <h2 class="form-header">Register Your Team</h2>
 
-  <!-- Category Radio -->
-  <mat-label class="category-header">Which Category Are you?</mat-label>
+<!-- Registration Form Container -->
+<div class="container">
+  <div class="registration-card">
+    <div class="logo-section">
+      <img src="assets/images/register/logo-register.PNG" alt="logo" class="logo-img" />
+      <div class="subtitle">Tournament Registration</div>
+    </div>
 
-  <div class="category-group">
-    <label *ngFor="let cat of categories" class="category-radio">
-      <input
-        type="radio"
-        name="category"
-        [value]="cat"
-        [(ngModel)]="formData.category"
-        required
-      />
-      <span class="fake-radio"></span>
-      {{ cat }}
-    </label>
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+      <div class="form-section">
+        <div class="section-title">Select Your Category</div>
+
+        <div class="category-group">
+          <div *ngFor="let cat of categories" class="category-option">
+            <input
+              type="radio"
+              [id]="'category-' + cat"
+              name="category"
+              class="category-radio"
+              [(ngModel)]="formData.category"
+              [value]="cat"
+              required
+            />
+            <label [for]="'category-' + cat" class="category-label">
+              {{ cat }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Player 1 Name *"
+          name="player1"
+          [(ngModel)]="formData.player1"
+          required
+          #player1="ngModel"
+        />
+        <div class="validation-msg" *ngIf="player1.invalid && player1.touched">
+          Player 1 name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Player 2 Name *"
+          name="player2"
+          [(ngModel)]="formData.player2"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          type="tel"
+          class="form-input"
+          placeholder="Contact Phone Number *"
+          name="phoneNumber"
+          [(ngModel)]="formData.phoneNumber"
+          required
+        />
+        <div class="input-description">
+          We'll use this number to contact you if we need any additional
+          information about your registration or tournament details.
+        </div>
+      </div>
+
+      <button
+
+        color="primary"
+        class="submit-btn"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Register Team
+      </button>
+      
+    </form>
   </div>
+</div>
 
-  <!-- player 1 -->
-  <mat-form-field
-    appearance="fill"
-    class="full-width"
-    *ngIf="formData.category != ''"
-  >
-    <mat-label>Player 1</mat-label>
-    <input matInput [(ngModel)]="formData.player1" name="player1" required />
-  </mat-form-field>
-
-  <!-- player 2 -->
-  <mat-form-field
-    appearance="fill"
-    class="full-width"
-    *ngIf="formData.category != ''"
-  >
-    <mat-label>Player 2</mat-label>
-    <input matInput [(ngModel)]="formData.player2" name="player2" required />
-  </mat-form-field>
-
-  <mat-form-field
-    appearance="fill"
-    class="full-width"
-    *ngIf="formData.category != ''"
-  >
-    <mat-label>Phone Number</mat-label>
-    <input
-      matInput
-      type="tel"
-      pattern="[0-9]*"
-      inputmode="numeric"
-      [(ngModel)]="formData.phoneNumber"
-      name="phoneNumber"
-      required
-    />
-  </mat-form-field>
-
-  <!-- Submit -->
-  <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="form.invalid"
-    *ngIf="formData.phoneNumber.length >= 8"
-  >
-    Register Team
-  </button>
-</form>

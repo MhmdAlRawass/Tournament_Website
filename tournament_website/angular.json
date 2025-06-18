@@ -25,7 +25,8 @@
               },
               "src/assets",
               "src/assets/ranking",
-              "src/assets/images"
+              "src/assets/images",
+              "src/assets/images/register"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
