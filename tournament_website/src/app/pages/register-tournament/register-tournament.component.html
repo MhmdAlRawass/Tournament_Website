@@ -1,0 +1,68 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()" class="registration-form">
+  <h2 class="form-header">Register Your Team</h2>
+
+  <!-- Category Radio -->
+  <mat-label class="category-header">Which Category Are you?</mat-label>
+
+  <div class="category-group">
+    <label *ngFor="let cat of categories" class="category-radio">
+      <input
+        type="radio"
+        name="category"
+        [value]="cat"
+        [(ngModel)]="formData.category"
+        required
+      />
+      <span class="fake-radio"></span>
+      {{ cat }}
+    </label>
+  </div>
+
+  <!-- player 1 -->
+  <mat-form-field
+    appearance="fill"
+    class="full-width"
+    *ngIf="formData.category != ''"
+  >
+    <mat-label>Player 1</mat-label>
+    <input matInput [(ngModel)]="formData.player1" name="player1" required />
+  </mat-form-field>
+
+  <!-- player 2 -->
+  <mat-form-field
+    appearance="fill"
+    class="full-width"
+    *ngIf="formData.category != ''"
+  >
+    <mat-label>Player 2</mat-label>
+    <input matInput [(ngModel)]="formData.player2" name="player2" required />
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="fill"
+    class="full-width"
+    *ngIf="formData.category != ''"
+  >
+    <mat-label>Phone Number</mat-label>
+    <input
+      matInput
+      type="tel"
+      pattern="[0-9]*"
+      inputmode="numeric"
+      [(ngModel)]="formData.phoneNumber"
+      name="phoneNumber"
+      required
+    />
+  </mat-form-field>
+
+  <!-- Submit -->
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+    *ngIf="formData.phoneNumber.length >= 8"
+  >
+    Register Team
+  </button>
+</form>

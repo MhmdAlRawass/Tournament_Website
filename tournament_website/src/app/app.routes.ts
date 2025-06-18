@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { TournamentDetailComponent } from './pages/tournament-detail/tournament-detail.component';
 import { TournamentFullBracketComponent } from './pages/tournament-detail/tournament-full-bracket/tournament-full-bracket.component';
+import { RegisterTournamentComponent } from './pages/register-tournament/register-tournament.component';
 
 export const routes: Routes = [
   // public routes
@@ -16,6 +17,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'tournament/register', component: RegisterTournamentComponent },
       { path: 'tournament/:id', component: TournamentDetailComponent },
       { path: 'tournament/:id/bracket-view', component: TournamentFullBracketComponent },
     ],

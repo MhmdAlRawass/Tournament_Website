@@ -1,0 +1,103 @@
+.registration-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-header {
+    background-color: transparent;
+    color: var(--text-light);
+    justify-content: center;
+    font-size: 24px;
+}
+
+.category-header {
+    color: var(--text-light);
+    font-size: 18px;
+}
+
+.category-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* Layout the radio group */
+.category-group {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 1rem;
+}
+
+/* Label styling */
+.category-radio {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+/* Hide native radio */
+.category-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Custom outer circle */
+.fake-radio {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(219, 216, 216, 0.54);
+  margin-right: 10px;
+  box-sizing: border-box;
+  position: relative;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* Inner dot when checked */
+.fake-radio::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #3f51b5; /* Material primary color */
+  border-radius: 50%;
+  transform: scale(0) translate(-50%, -50%);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Checked state */
+.category-radio input[type="radio"]:checked + .fake-radio {
+  border-color: #3f51b5;
+}
+
+.category-radio input[type="radio"]:checked + .fake-radio::after {
+  transform: scale(1) translate(-50%, -50%);
+}
+
+/* Optional hover */
+.category-radio:hover .fake-radio {
+  border-color: #303f9f;
+}
+
+
+
+@media (max-width: 600px) {
+    .registration-form {
+        margin: 2rem 2rem;
+    }
+}
