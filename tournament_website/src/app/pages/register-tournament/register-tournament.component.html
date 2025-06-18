@@ -1,5 +1,8 @@
 
 <!-- Registration Form Container -->
+<div *ngIf="isLoading" class="loading-overlay">
+  <mat-spinner></mat-spinner>
+</div>
 <div class="container">
   <div class="registration-card">
     <div class="logo-section">
@@ -53,6 +56,10 @@
           [(ngModel)]="formData.player2"
           required
         />
+
+        <div class="validation-msg" *ngIf="player1.invalid && player1.touched">
+          Player 2 name is required.
+        </div>
       </div>
 
       <div class="form-group">
@@ -64,6 +71,9 @@
           [(ngModel)]="formData.phoneNumber"
           required
         />
+        <div class="validation-msg" *ngIf="player1.invalid && player1.touched">
+          Phone Number is required.
+        </div>
         <div class="input-description">
           We'll use this number to contact you if we need any additional
           information about your registration or tournament details.
@@ -71,11 +81,10 @@
       </div>
 
       <button
-
         color="primary"
         class="submit-btn"
         type="submit"
-        [disabled]="form.invalid"
+        [disabled]="form.invalid && isLoading"
       >
         Register Team
       </button>

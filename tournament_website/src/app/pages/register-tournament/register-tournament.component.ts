@@ -7,12 +7,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import {
   ParticipantDb,
   ParticipantService,
 } from '../../services/participant.service';
-
-declare var tsParticles: any;
 
 @Component({
   selector: 'app-register-tournament',
@@ -25,12 +26,13 @@ declare var tsParticles: any;
     CommonModule,
     MatToolbarModule,
     MatRadioModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './register-tournament.component.html',
   styleUrls: ['./register-tournament.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class RegisterTournamentComponent implements OnInit {
+export class RegisterTournamentComponent {
   categories = ['D', 'E'];
 
   formData: ParticipantDb = {
@@ -40,7 +42,12 @@ export class RegisterTournamentComponent implements OnInit {
     player2: '',
   };
 
-  constructor(private participantServices: ParticipantService) {}
+  isLoading: boolean = false;
+
+  constructor(
+    private participantServices: ParticipantService,
+    private snackBar: MatSnackBar
+  ) {}
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
@@ -48,14 +55,21 @@ export class RegisterTournamentComponent implements OnInit {
       Object.values(form.controls).forEach((control) => {
         control.markAsTouched();
       });
-      alert('All Info must be filled');
+      this.snackBar.open('All info must be filled!', 'Close', {
+        duration: 3000,
+      });
       return;
     }
+
+    this.isLoading = true;
 
     this.participantServices.addParticipant(this.formData).subscribe({
       next: (res) => {
         console.log('Participant added ');
-        alert('Team Registered Successfully!');
+        this.isLoading = false;
+        this.snackBar.open('Team Registered Successfully!', 'Close', {
+          duration: 3000,
+        });
         this.formData = {
           category: '',
           phoneNumber: '',
@@ -65,37 +79,11 @@ export class RegisterTournamentComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error adding participant:', err);
-        alert('Failed to register team.');
+        this.isLoading = false;
+        this.snackBar.open('An Error Occured', 'Close', {
+          duration: 3000,
+        });
       },
     });
-  }
-
-  ngOnInit(): void {
-    // tsParticles.load('tsparticles', {
-    //   background: { color: 'transparent' },
-    //   fullScreen: { enable: false },
-    //   particles: {
-    //     number: { value: 12, density: { enable: true, area: 800 } },
-    //     move: {
-    //       direction: 'none',
-    //       enable: true,
-    //       outModes: 'bounce',
-    //       random: true,
-    //       speed: 1,
-    //       straight: false,
-    //     },
-    //     shape: {
-    //       type: 'image',
-    //       image: {
-    //         src: 'https://cdn-icons-png.flaticon.com/512/1048/1048314.png',
-    //         width: 30,
-    //         height: 30,
-    //       },
-    //     },
-    //     size: { value: 20, random: { enable: true, minimumValue: 14 } },
-    //     opacity: { value: 0.8 },
-    //   },
-    //   detectRetina: true,
-    // });
   }
 }
