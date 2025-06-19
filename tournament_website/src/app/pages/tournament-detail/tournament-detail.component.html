@@ -1,4 +1,15 @@
-<div *ngIf="tournament; else notFound" class="container">
+<!-- isLoading STATE -->
+<div *ngIf="isLoading" class="container">
+  <p class="isLoading-text">Loading tournament...</p>
+</div>
+
+<!-- ERROR STATE -->
+<div *ngIf="!isLoading && isError" class="container">
+  <p class="error-text">Failed to load tournament. Please try again later.</p>
+</div>
+
+<!-- SUCCESS STATE -->
+<div *ngIf="!isLoading && tournament" class="container">
   <!-- Header card -->
   <div class="header">
     <app-tournament-detail-header
@@ -6,16 +17,14 @@
       (tabChanged)="changeTab($event)"
     ></app-tournament-detail-header>
   </div>
-  <!-- ------------ -->
 
   <!-- Body -->
   <div class="tab-content">
-    <!-- Overview -->
     <app-tournament-detail-overview
       *ngIf="selectedTab === 'overview'"
       [tournament]="tournament"
     ></app-tournament-detail-overview>
-    <!-- BRacket -->
+
     <app-tournament-detail-bracket
       *ngIf="selectedTab === 'bracket'"
       [tournament]="tournament"
@@ -23,28 +32,22 @@
       [participants]="participants"
       [groupedMatches]="groupedMatches"
     ></app-tournament-detail-bracket>
-    <!-- Participants -->
+
     <app-tournament-detail-participants
       *ngIf="selectedTab === 'participants'"
       [tournament]="tournament"
       [participants]="participants"
     ></app-tournament-detail-participants>
-    <!-- Matches -->
+
     <app-tournament-detail-matches
       *ngIf="selectedTab === 'matches'"
       [tournament]="tournament"
       [groupedStats]="groupedStats"
     ></app-tournament-detail-matches>
-    <!-- Test -->
+
     <app-test-bracket
       *ngIf="selectedTab === 'test-bracket'"
       [groupedMatches]="groupedMatches"
     ></app-test-bracket>
   </div>
 </div>
-
-<ng-template #notFound>
-  <div class="container">
-    <p>Tournament not found.</p>
-  </div>
-</ng-template>

@@ -38,7 +38,7 @@ export class RegisterTournamentComponent {
 
   formData: ParticipantDb = {
     category: '',
-    phone_number: 0,
+    phone_number: null,
     player1_name: '',
     player2_name: '',
   };
@@ -76,7 +76,7 @@ export class RegisterTournamentComponent {
         });
         this.formData = {
           category: '',
-          phone_number: 0,
+          phone_number: null,
           player1_name: '',
           player2_name: '',
         };

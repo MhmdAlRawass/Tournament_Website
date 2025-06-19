@@ -66,9 +66,9 @@ export class TournamentDetailOverviewComponent implements OnInit {
     ];
 
     this.rankingList = [
-      { rank: 1, prize: 1000 },
-      { rank: 2, prize: 500 },
-      { rank: 3, prize: 250 },
+      { rank: 1, prize: 300 },
+      { rank: 2, prize: 200 },
+      // { rank: 3, prize: 250 },
     ];
   }
 

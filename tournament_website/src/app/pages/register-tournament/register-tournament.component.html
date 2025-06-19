@@ -69,6 +69,8 @@
           name="phoneNumber"
           minlength="8"
           [(ngModel)]="formData.phone_number"
+          [ngModel]="formData.phone_number === 0 ? null : formData.phone_number"
+
           required
           #phoneNumber="ngModel"
         />

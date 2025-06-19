@@ -1,30 +1,22 @@
 .card-header {
   display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 1.5rem 2rem;
-  padding-bottom: 0;
+  flex-direction: column;
+  padding: 1.5rem 2rem 0 2rem;
   background-color: var(--card-blue);
   border-radius: 16px;
   color: var(--text-light);
   width: 100%;
   max-width: 900px;
   box-shadow: 0 4px 20px var(--card-shadow);
-  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .card-top {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-  /* padding: 1.5rem 2rem; */
-  /* background-color: var(--card-blue); */
-  /* border-radius: 16px; */
-  color: var(--text-light);
-  width: 100%;
-  max-width: 900px;
-  /* box-shadow: 0 4px 20px var(--card-shadow); */
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .header-left {
@@ -37,6 +29,7 @@
   font-size: 1.8rem;
   margin-bottom: 1rem;
   color: var(--highlight-yellow);
+  word-break: break-word;
 }
 
 .header-left-bottom {
@@ -53,6 +46,7 @@
   border-radius: 8px;
   font-size: 0.9rem;
   color: var(--text-light);
+  white-space: nowrap;
 }
 
 .icon {
@@ -73,15 +67,17 @@
 .header-right {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  gap: 0.5rem;
+  min-width: 180px;
 }
 
 .prize {
   font-size: 2rem;
   color: #55ff55;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .join-btn {
@@ -95,6 +91,7 @@
   cursor: pointer;
   box-shadow: 0 0 10px rgba(255, 92, 141, 0.4);
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .join-btn:hover {
@@ -115,15 +112,17 @@
   list-style: none;
   color: var(--text-light);
   font-weight: 500;
+  overflow-x: auto;
 }
 
 .card-bottom ul li {
   position: relative;
   padding: 1rem 1.5rem;
-  /* cursor: pointer; */
   border-right: 2px solid rgba(255, 255, 255, 0.1);
   transition: color 0.3s ease;
   color: #b4b3b3;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 .card-bottom ul li:last-child {
@@ -152,14 +151,6 @@
   transform: translateX(-50%) scaleX(1);
 }
 
-/* .card-bottom ul li:hover {
-  color: var(--highlight-yellow);
-} */
-
-/* .card-bottom ul li:hover::after {
-  transform: translateX(-50%) scaleX(0.6);
-} */
-
 .card-bottom li {
   display: flex;
   justify-content: center;
@@ -167,3 +158,36 @@
   gap: 0.5rem;
 }
 
+/* RESPONSIVE LAYOUT */
+@media (max-width: 768px) {
+  .card-header {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .header-left-top h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .prize {
+    font-size: 1.5rem;
+  }
+
+  .join-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+  .header-right {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: unset;
+    width: 100%;
+  }
+
+  .card-bottom ul {
+    flex-wrap: nowrap;
+  }
+}

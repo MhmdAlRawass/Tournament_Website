@@ -48,6 +48,9 @@ export class TournamentDetailComponent implements OnInit {
 
   selectedGroupId: string = '';
 
+  isLoading: boolean = true;
+  isError: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private tournamentService: TournamentService
@@ -68,6 +71,7 @@ export class TournamentDetailComponent implements OnInit {
           stat: this.tournamentService.getParticipantsStat(this.tournament.id),
         }).subscribe({
           next: ({ matches, participants, stat }) => {
+            this.isLoading = false;
             this.matches = matches;
             this.groupedMatches =
               this.tournamentService.groupMatchesByGroupAndRound(matches);
@@ -79,6 +83,8 @@ export class TournamentDetailComponent implements OnInit {
             this.selectedGroupId = groupIds.length > 0 ? groupIds[0] : '';
           },
           error: (err) => {
+            this.isLoading = false;
+            this.isError = true;
             console.error('Error loading data: ', err);
           },
         });

@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { CountdownPipe } from '../../../pipes/countdown.pipe';
 
 @Component({
   selector: 'app-tournament-detail-header',
-  imports: [MatIconModule, CommonModule],
+  imports: [MatIconModule, CommonModule, CountdownPipe],
   templateUrl: './tournament-detail-header.component.html',
   styleUrls: ['./tournament-detail-header.component.css'],
 })
@@ -18,9 +19,9 @@ export class TournamentDetailHeaderComponent {
   tabsList: string[] = [
     'overview',
     'bracket',
-    'matches',
-    'participants',
-    'test-bracket',  
+    // 'matches',
+    // 'participants',
+    // 'test-bracket',
   ];
   selectedTab: string = 'overview';
 
