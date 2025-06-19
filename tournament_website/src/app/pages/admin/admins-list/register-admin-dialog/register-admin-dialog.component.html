@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Register Admin</h2>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username" required />
+    <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
+      Username is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width" align="center" >
+    <mat-label>Password</mat-label>
+    <input matInput type="password" minlength="6" formControlName="password" required />
+    <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+      Password is required (6 characters at least)
+    </mat-error>
+    <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
+      Password must be at least 6 characters long
+    </mat-error>
+  </mat-form-field>
+
+  <div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">Cancel</button>
+    <button mat-raised-button color="primary" type="submit"  [disabled]="registerForm.invalid">
+      Confirm
+    </button>
+  </div>
+</form>

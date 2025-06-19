@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Timestamp } from 'rxjs';
 
 export interface ParticipantDb {
+  player1_name: string;
+  player2_name: string;
+  phone_number?: number | null;
   category: string;
-  phoneNumber: string;
-  player1: string;
-  player2: string;
+  created_at?: string | null;
 }
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +22,9 @@ export class ParticipantService {
 
   addParticipant(data: ParticipantDb): Observable<ParticipantDb> {
     return this.http.post<ParticipantDb>(this.apiUrl, data);
+  }
+
+  getAllParticipants(): Observable<ParticipantDb[]> {
+    return this.http.get<ParticipantDb[]>(this.apiUrl);
   }
 }

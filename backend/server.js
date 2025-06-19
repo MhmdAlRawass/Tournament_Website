@@ -1,13 +1,15 @@
 // const express = require("express");
 // const axios = require("axios");
 // const cors = require("cors");
+// require('dotenv').config();
+
 
 // const app = express();
 // const PORT = 3000;
 
 // app.use(cors());
 
-// const CHALLONGE_API_KEY = "llUkUZumsye4tMYh4fyrH07lJJNZWep8hSnGnGdD";
+// const CHALLONGE_API_KEY = process.env.CHALLONGE_API_KEY;
 // const CHALLONGE_USERNAME = "Mhmd_R";
 
 // // Get all tournaments

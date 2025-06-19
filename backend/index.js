@@ -17,7 +17,10 @@ app.use(cors());
 
 app.use(express.json());
 
+// api integration
 app.use("/api", tournamentRoutes);
+
+// backend integration
 app.use("/api/participants", participantsRouter);
 
 // admin

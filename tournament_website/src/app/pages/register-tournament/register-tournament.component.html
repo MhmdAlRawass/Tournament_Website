@@ -1,5 +1,3 @@
-
-<!-- Registration Form Container -->
 <div *ngIf="isLoading" class="loading-overlay">
   <mat-spinner></mat-spinner>
 </div>
@@ -38,11 +36,11 @@
           class="form-input"
           placeholder="Player 1 Name *"
           name="player1"
-          [(ngModel)]="formData.player1"
+          [(ngModel)]="formData.player1_name"
           required
           #player1="ngModel"
         />
-        <div class="validation-msg" *ngIf="player1.invalid && player1.touched">
+        <div class="validation-msg" *ngIf="player1.invalid && isFormSubmitted">
           Player 1 name is required.
         </div>
       </div>
@@ -53,11 +51,12 @@
           class="form-input"
           placeholder="Player 2 Name *"
           name="player2"
-          [(ngModel)]="formData.player2"
+          [(ngModel)]="formData.player2_name"
           required
+          #player2="ngModel"
         />
 
-        <div class="validation-msg" *ngIf="player1.invalid && player1.touched">
+        <div class="validation-msg" *ngIf="player2.invalid && isFormSubmitted">
           Player 2 name is required.
         </div>
       </div>
@@ -68,16 +67,20 @@
           class="form-input"
           placeholder="Contact Phone Number *"
           name="phoneNumber"
-          [(ngModel)]="formData.phoneNumber"
+          minlength="8"
+          [(ngModel)]="formData.phone_number"
           required
+          #phoneNumber="ngModel"
         />
-        <div class="validation-msg" *ngIf="player1.invalid && player1.touched">
-          Phone Number is required.
-        </div>
-        <div class="input-description">
-          We'll use this number to contact you if we need any additional
-          information about your registration or tournament details.
-        </div>
+        <ng-container *ngIf="formData.phone_number">
+          <div class="validation-msg" *ngIf="phoneNumber.invalid && isFormSubmitted">
+            Phone Number is required and must be valid.
+          </div>
+          <div class="input-description">
+            We'll use this number to contact you if we need any additional
+            information about your registration or tournament details.
+          </div>
+        </ng-container>
       </div>
 
       <button

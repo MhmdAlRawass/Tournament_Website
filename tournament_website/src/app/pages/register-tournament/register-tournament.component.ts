@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,13 +17,14 @@ import {
 
 @Component({
   selector: 'app-register-tournament',
+  standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    CommonModule,
     MatToolbarModule,
     MatRadioModule,
     MatProgressSpinnerModule,
@@ -37,12 +38,13 @@ export class RegisterTournamentComponent {
 
   formData: ParticipantDb = {
     category: '',
-    phoneNumber: '',
-    player1: '',
-    player2: '',
+    phone_number: 0,
+    player1_name: '',
+    player2_name: '',
   };
 
-  isLoading: boolean = false;
+  isLoading = false;
+  isFormSubmitted = false;
 
   constructor(
     private participantServices: ParticipantService,
@@ -50,11 +52,12 @@ export class RegisterTournamentComponent {
   ) {}
 
   onSubmit(form: NgForm) {
+    this.isFormSubmitted = true;
+
     if (form.invalid) {
-      // Mark all fields as touched to trigger validation messages
-      Object.values(form.controls).forEach((control) => {
-        control.markAsTouched();
-      });
+      Object.values(form.controls).forEach((control) =>
+        control.markAsTouched()
+      );
       this.snackBar.open('All info must be filled!', 'Close', {
         duration: 3000,
       });
@@ -64,23 +67,26 @@ export class RegisterTournamentComponent {
     this.isLoading = true;
 
     this.participantServices.addParticipant(this.formData).subscribe({
-      next: (res) => {
-        console.log('Participant added ');
+      next: () => {
+        console.log('Submitting formData:', this.formData);
+
         this.isLoading = false;
         this.snackBar.open('Team Registered Successfully!', 'Close', {
           duration: 3000,
         });
         this.formData = {
           category: '',
-          phoneNumber: '',
-          player1: '',
-          player2: '',
+          phone_number: 0,
+          player1_name: '',
+          player2_name: '',
         };
+        this.isFormSubmitted = false;
+        form.resetForm();
       },
       error: (err) => {
         console.error('Error adding participant:', err);
         this.isLoading = false;
-        this.snackBar.open('An Error Occured', 'Close', {
+        this.snackBar.open('An Error Occurred', 'Close', {
           duration: 3000,
         });
       },

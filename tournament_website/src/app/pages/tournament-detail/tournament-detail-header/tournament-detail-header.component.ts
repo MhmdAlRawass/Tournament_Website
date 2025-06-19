@@ -20,11 +20,13 @@ export class TournamentDetailHeaderComponent {
     'bracket',
     'matches',
     'participants',
-    'test-bracket',
+    'test-bracket',  
   ];
   selectedTab: string = 'overview';
 
-  onPressedJoin(t: any) {}
+  onPressedJoin(t: any) {
+    this.router.navigate(['/tournament/register']);
+  }
 
   onSelectTab(tab: string) {
     this.selectedTab = tab;

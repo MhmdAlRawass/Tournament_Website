@@ -1,5 +1,5 @@
 .modern-sidebar {
-  background-color: #1e1e2f;
+  background-color: var(--rank-box);
   padding: 1rem;
   /* width: 100%; */
   height: 100%;
@@ -43,8 +43,9 @@
 }
 
 .modern-sidebar .active-link {
-  background-color: #3949ab;
+  background-color: var(--primary-bg);
   color: white;
+  box-shadow: var(--card-shadow);
   font-weight: 600;
 }
 
@@ -61,4 +62,15 @@
 
 .modern-sidebar a span{
   color: #ccc;
+}
+
+.sidebar-list {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.logout-link {
+  margin-top: auto;
+  margin-bottom: 2rem;
 }

@@ -5,16 +5,16 @@ const jwt = require('jsonwebtoken');
 const registerUser = async ({ username, password, role }) => {
   const hashed = await bcrypt.hash(password, 10);
   const result = await pool.query(
-    'INSERT INTO users (username, password, role) VALUES ($1, $2, $3) RETURNING *',
+    'INSERT INTO admins (username, password, role) VALUES ($1, $2, $3) RETURNING *',
     [username, hashed, role || 'user']
   );
   return result.rows[0];
 };
 
 const loginUser = async ({ username, password }) => {
-  const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+  const result = await pool.query('SELECT * FROM admins WHERE username = $1', [username]);
   const user = result.rows[0];
-  if (!user) throw new Error('User not found');
+  if (!user) throw new Error('Admin not found');
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) throw new Error('Invalid credentials');

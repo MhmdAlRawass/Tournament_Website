@@ -120,9 +120,10 @@
 .card-bottom ul li {
   position: relative;
   padding: 1rem 1.5rem;
-  cursor: pointer;
+  /* cursor: pointer; */
   border-right: 2px solid rgba(255, 255, 255, 0.1);
   transition: color 0.3s ease;
+  color: #b4b3b3;
 }
 
 .card-bottom ul li:last-child {
@@ -151,10 +152,18 @@
   transform: translateX(-50%) scaleX(1);
 }
 
-.card-bottom ul li:hover {
+/* .card-bottom ul li:hover {
   color: var(--highlight-yellow);
+} */
+
+/* .card-bottom ul li:hover::after {
+  transform: translateX(-50%) scaleX(0.6);
+} */
+
+.card-bottom li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.card-bottom ul li:hover::after {
-  transform: translateX(-50%) scaleX(0.6);
-}

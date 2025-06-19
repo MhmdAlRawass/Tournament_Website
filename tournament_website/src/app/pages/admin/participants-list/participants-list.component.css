@@ -1,0 +1,149 @@
+/* Container for header and button */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.table-header h2 {
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: #222;
+  margin: 0;
+  user-select: none;
+}
+
+.table-header button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.table-header button:hover {
+  background-color: #303f9f;
+  box-shadow: 0 6px 20px rgba(63, 81, 181, 0.5);
+}
+
+/* Material Icon inside the button */
+.table-header mat-icon {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+/* Table base styles */
+table.mat-elevation-z2 {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px; /* vertical space between rows */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Header row styling */
+tr.mat-header-row {
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(63, 81, 181, 0.4);
+  user-select: none;
+}
+
+/* Header cell styling */
+th.mat-header-cell {
+  padding: 1rem 1.2rem;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: left;
+  border: none;
+  /* Make header cells rounded */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Add rounding to first and last header cells */
+th.mat-header-cell:first-child {
+  border-top-left-radius: 12px;
+}
+
+th.mat-header-cell:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* Row styling */
+tr.mat-row {
+  background-color: #f9f9fb;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px #ddd;
+  transition: box-shadow 0.25s ease;
+  cursor: default;
+}
+
+/* Hover effect on rows */
+tr.mat-row:hover {
+  box-shadow: 0 8px 16px rgba(63, 81, 181, 0.25);
+  background-color: #f1f4ff;
+}
+
+/* Data cells */
+td.mat-cell {
+  padding: 1rem 1.2rem;
+  border: none;
+  vertical-align: middle;
+  color: #444;
+  font-weight: 500;
+}
+
+/* Actions column buttons */
+td.mat-cell button.mat-icon-button {
+  margin-right: 0.4rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+td.mat-cell button.mat-icon-button:hover {
+  background-color: rgba(63, 81, 181, 0.1);
+}
+
+/* Primary edit button */
+td.mat-cell button.mat-icon-button[color="primary"]:hover {
+  background-color: #c5cae9;
+}
+
+/* Warn delete button */
+td.mat-cell button.mat-icon-button[color="warn"]:hover {
+  background-color: #f8d7da;
+  color: #b71c1c !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .table-header button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  table.mat-elevation-z2 {
+    font-size: 0.9rem;
+  }
+
+  td.mat-cell, th.mat-header-cell {
+    padding: 0.75rem 0.8rem;
+  }
+}
+

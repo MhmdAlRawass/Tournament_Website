@@ -18,8 +18,9 @@
       </div>
 
       <div class="header-right">
-        <h2 class="prize">${{ tournament.prizePool }}</h2>
+        <h2 class="prize">Free entry</h2>
         <button class="join-btn" (click)="onPressedJoin(tournament)">JOIN NOW!</button>
+        <!-- dont forget, it is for showing fully bracket here -->
         <button class="join-btn" style="margin-top: 10px;" (click)="onPressedShowBracket()">Show Full Bracket</button>
       </div>
     </div>
@@ -28,7 +29,8 @@
       <ul>
         @for (tab of tabsList; track $index) {
             <li [ngClass]="{ active: selectedTab === tab }" (click)="onSelectTab(tab)">
-                {{ tab | uppercase }}
+              {{ tab | uppercase }}
+                <mat-icon *ngIf="tab !== 'overview'" class="lock-icon" style="color: rgb(245, 95, 95);">lock</mat-icon>
             </li>
         }
       </ul>

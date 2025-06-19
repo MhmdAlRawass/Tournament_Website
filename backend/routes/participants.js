@@ -18,12 +18,12 @@ router.get("/", async (req, res) => {
 // Add a participant
 router.post("/", async (req, res) => {
   try {
-    const { player1, player2, phoneNumber, category } = req.body;
+    const { player1_name, player2_name, phone_number, category } = req.body;
 
     const result = await pool.query(
       `INSERT INTO participants (player1_name, player2_name, phone_number, category, created_at) 
        VALUES ($1, $2, $3, $4, NOW()) RETURNING *`,
-      [player1, player2, phoneNumber, category]
+      [player1_name, player2_name, phone_number, category]
     );
 
     res.json(result.rows[0]);

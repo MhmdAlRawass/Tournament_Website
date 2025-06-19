@@ -1,21 +1,27 @@
 <mat-nav-list class="modern-sidebar">
   <div class="sidebar-header">
-    <img src="assets/logo.png" alt="Logo" class="logo">
-    <h2 class="app-title">{{appName}}</h2>
+    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <h2 class="app-title">{{ appName }}</h2>
   </div>
-  <a mat-list-item
-     routerLink="/admin/dashboard"
-     routerLinkActive="active-link"
-     [routerLinkActiveOptions]="{ exact: true }">
-    <mat-icon>dashboard</mat-icon>
-    <span>Dashboard</span>
-  </a>
 
-  <a mat-list-item
-     routerLink="/admin/tournaments"
-     routerLinkActive="active-link"
-     [routerLinkActiveOptions]="{ exact: true }">
-    <mat-icon>emoji_events</mat-icon>
-    <span>Tournaments</span>
-  </a>
+  <!-- Navigation Items -->
+  <!-- Container for navigation items and logout button -->
+  <div class="sidebar-list" >
+    <a
+      mat-list-item
+      *ngFor="let item of navItems"
+      [routerLink]="item.route"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: item.exact }"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span>{{ item.label }}</span>
+    </a>
+
+    <!-- Logout Button -->
+    <a mat-list-item (click)="onLogout()" class="logout-link" >
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </a>
+  </div>
 </mat-nav-list>

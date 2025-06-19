@@ -1,4 +1,5 @@
 const axios = require("axios");
+require('dotenv').config();
 
 const BASE_URL = "https://api.challonge.com/v1";
 const API_KEY = process.env.CHALLONGE_API_KEY;
