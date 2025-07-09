@@ -1,3 +1,5 @@
+declare var gtag: Function;
+
 import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -36,7 +38,40 @@ import {
 export class RegisterTournamentComponent {
   categories = ['D', 'E'];
 
+  districts = [
+    'مجلس مفوضية الجنوب',
+    'فوج صيدا الأول',
+    'فوج صيدا الرابع',
+    'فوج صيدا الخامس',
+    'فوج صيدا السادس',
+    'فوج حاصبيا الأول',
+    'الفرقة الموسيقية لمفوضية الجنوب',
+    'الهيئة العامة',
+    'الهيئة الإدارية',
+    'المفوضية العامة',
+    'مجلس مفوضية بيروت',
+    'مجلس مفوضية الجبل',
+    'مجلس مفوضية البقاع',
+    'فوج بيروت الأول',
+    'فوج بيروت الثاني',
+    'فوج بيروت الثالث',
+    'فوج بيروت الرابع',
+    'فوج بيروت السابع',
+    'الفرقة الموسيقية لمفوضية بيروت',
+    'فوج برمانا الأول',
+    'فوج الرابية الأول',
+    'فوج عاليه الأول',
+    'فوج المنصف الأول',
+    'فوج زحلة الأول',
+    'فوج زحلة الثاني',
+    'فوج زحلة الثالث',
+    'فوج زحلة الرابع',
+    'الفرقة الموسيقية لمفوضية البقاع',
+  ];
+
   formData: ParticipantDb = {
+    team_name: null,
+    district: '',
     category: '',
     phone_number: null,
     player1_name: '',
@@ -58,30 +93,34 @@ export class RegisterTournamentComponent {
       Object.values(form.controls).forEach((control) =>
         control.markAsTouched()
       );
-      this.snackBar.open('All info must be filled!', 'Close', {
+      this.snackBar.open('Required info must be filled!', 'Close', {
         duration: 3000,
       });
       return;
     }
+    gtag('event', 'form_submit', {
+      event_category: 'forms',
+      event_label: 'Tournament Registration',
+    });
 
     this.isLoading = true;
 
     this.participantServices.addParticipant(this.formData).subscribe({
       next: () => {
-        console.log('Submitting formData:', this.formData);
-
         this.isLoading = false;
         this.snackBar.open('Team Registered Successfully!', 'Close', {
           duration: 3000,
         });
         this.formData = {
+          team_name: null,
+          district: '',
           category: '',
           phone_number: null,
           player1_name: '',
           player2_name: '',
         };
         this.isFormSubmitted = false;
-        form.resetForm();
+        // form.resetForm();
       },
       error: (err) => {
         console.error('Error adding participant:', err);
@@ -92,4 +131,6 @@ export class RegisterTournamentComponent {
       },
     });
   }
+
+  
 }

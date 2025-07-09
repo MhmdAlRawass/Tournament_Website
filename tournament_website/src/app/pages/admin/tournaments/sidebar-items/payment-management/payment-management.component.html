@@ -1,0 +1,189 @@
+<div class="container">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1>Payment Management</h1>
+                <div class="breadcrumb">Tournament Management / Payment Tracking</div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-cards">
+                <div class="card revenue-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Total Revenue</div>
+                            <div class="card-value" id="totalRevenue">$2,400</div>
+                            <div class="card-subtitle">8 of 13 participants paid</div>
+                        </div>
+                        <div class="card-icon">💰</div>
+                    </div>
+                </div>
+
+                <div class="card paid-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Paid</div>
+                            <div class="card-value" id="paidCount">8</div>
+                            <div class="card-subtitle">61.5% completion</div>
+                        </div>
+                        <div class="card-icon">✅</div>
+                    </div>
+                </div>
+
+                <div class="card pending-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Pending</div>
+                            <div class="card-value" id="pendingCount">3</div>
+                            <div class="card-subtitle">Within deadline</div>
+                        </div>
+                        <div class="card-icon">⏳</div>
+                    </div>
+                </div>
+
+                <div class="card overdue-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Overdue</div>
+                            <div class="card-value" id="overdueCount">2</div>
+                            <div class="card-subtitle">Need follow-up</div>
+                        </div>
+                        <div class="card-icon">⚠️</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Table -->
+            <div class="payment-section">
+                <div class="section-header">
+                    <h2 class="section-title">Payment Status</h2>
+                    <div class="filters">
+                        <select class="filter-select" id="statusFilter" [(ngModel)]="selectedStatusFilter" (ngModelChange)="onStatusFilterChange($event)">
+                            <option value="all">All Status</option>
+                            <option value="paid">Paid</option>
+                            <option value="pending">Pending</option>
+                            <option value="overdue">Overdue</option>
+                        </select>
+                        <select class="filter-select" id="categoryFilter" [(ngModel)]="categoryFilter" (ngModelChange)="onCategoryChange($event)">
+                            <option value="all">All Categories</option>
+                            <option value="D">Category D</option>
+                            <option value="E">Category E</option>
+                        </select>
+                        <input type="text" class="search-input" placeholder="Search participants..." id="searchInput" [(ngModel)]="searchTerm" (ngModelChange)="onSearchInput($event)">
+                    </div>
+                </div>
+
+                <table class="payment-table">
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th>Category</th>
+                            <th>Phone</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Due Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentTableBody" >
+                        <tr *ngFor="let p of pagedParticipants">
+                            <td>{{p.player1}}</td>
+                            <td>{{p.category}}</td>
+                            <td>{{p.phone}}</td>
+                            <td>{{p.amount}}</td>
+                            <td>
+                                <span class="status-badge" [ngClass]="">
+                                    {{ p.status }}
+                                </span>
+                            </td>
+                            <td [ngClass]="">
+                                {{ formatDate(p.dueDate) }}
+                            </td>
+                            <td>
+                                <ng-container *ngIf="p.status !== 'paid'; else paidTemplate">
+                                    <button class="action-btn btn-mark-paid" (click)="markAsPaid(p.id)">Mark Paid</button>
+                                </ng-container>
+                                <ng-template #paidTemplate>
+                                    <!-- <span style="color: #27ae60; font-weight: 500;">✓ Paid</span> -->
+                                     <button class="action-btn btn-mark-unpaid" (click)="markAsUnPaid(p.id)">Mark as unpaid</button>
+                                </ng-template>
+
+                                <ng-container *ngIf="p.status !== 'paid'">
+                                    <button class="action-btn btn-send-reminder" (click)="sendReminder(p.id)">Send Reminder</button>
+                                </ng-container>
+
+                                <button class="action-btn btn-view-details" (click)="viewDetails(p.id)">Details</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    <div class="pagination-info">
+                        Showing
+                        {{ (currentPage - 1) * itemsPerPage + 1 }} -
+                        {{ getPageEnd() }} 
+                        of {{ filteredParticipants.length }} participants
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="page-btn" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+
+                        <button
+                        *ngFor="let page of [].constructor(totalPages); let i = index"
+                        class="page-btn"
+                        [class.active]="currentPage === i + 1"
+                        (click)="goToPage(i + 1)"
+                        >
+                        {{ i + 1 }}
+                        </button>
+
+                        <button class="page-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Record Payment</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label class="form-label">Participant</label>
+                    <input type="text" class="form-input" id="participantName" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Amount</label>
+                    <input type="number" class="form-input" id="paymentAmount" value="300">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Payment Method</label>
+                    <select class="form-input" id="paymentMethod">
+                        <option value="cash">Cash</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                        <option value="card">Credit Card</option>
+                        <option value="check">Check</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Payment Date</label>
+                    <input type="date" class="form-input" id="paymentDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <input type="text" class="form-input" id="paymentNotes" placeholder="Optional notes...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Record Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>

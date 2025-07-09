@@ -1,0 +1,45 @@
+<div class="dialog-container">
+    <div class="header">
+        <h2>Group {{ groupId }}</h2>
+        <button class="close-btn" (click)="closeDialog()" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+
+
+
+    <div *ngIf="participants.length > 0; else noParticipants;" class="participants-wrapper">
+        <div *ngFor="let p of participants; let i = index;" class="participant">
+            
+            <div class="p-left">
+                <div class="number">
+                     {{i}}
+                </div>
+                <div class="info">
+                    <span class="name">{{p.name}}</span>
+                    <span class="seed">1st Seed</span>
+                </div>
+            </div>
+
+            <div class="check-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="save-btn">
+        Save Changes
+    </div>
+
+    <ng-template #noParticipants>
+        <p>No participants found.</p>
+    </ng-template>
+
+</div>

@@ -11,15 +11,18 @@
   --font-size-default: 1rem;
   --line-height-default: 1.4;
 } */
+* {
+  box-sizing: border-box;
+}
 
 /* Container */
 .overview-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 0rem 2rem;
   width: 100%;
-  background-color: var(--primary-bg);
+  /* background-color: var(--primary-bg); */
   color: var(--text-light);
 }
 
@@ -50,7 +53,8 @@
 /* Format cards grid */
 .format-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); */
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
 }
 
@@ -126,7 +130,7 @@
 
 .first-row .rank-card {
   position: relative;
-  width: 300px;
+  width: 200px;
 }
 
 .first-row .rank-card img {
@@ -204,4 +208,119 @@ li {
     flex-direction: column;
   }
   
+}
+
+
+/* Main layout wrapper */
+.first-row-updated {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+/* Prize section box */
+.d-section,
+.e-section {
+  flex: 1;
+  min-width: 250px;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  background-color: rgba(19, 36, 38, 0.4); 
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 255, 221, 0.1);
+}
+
+/* Title styling */
+.prizes-section-title {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  color: var(--highlight-yellow);
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+/* List wrapper */
+.prizes-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* List items */
+.prizes-container li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(40, 167, 69, 0.2);
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.prizes-container li:last-child {
+  border-bottom: none;
+}
+
+/* Lottie animation box */
+.prizes-animation {
+  flex: 0 0 320px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .first-row-updated {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .d-section,
+  .e-section,
+  .prizes-animation {
+    flex: none;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .prizes-animation {
+    height: auto;
+  }
+}
+
+@media (max-width: 527px) {
+  .format-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 510px) {
+  .d-section,
+  .e-section {
+    max-width: 250px;
+  }
+}
+/* added  */
+.rules-section ul li:nth-child(2), 
+.rules-section ul li:nth-child(6)
+ {
+  list-style-type: none;
 }

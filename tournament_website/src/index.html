@@ -2,14 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>TournamentWebsite</title>
+  <title>PadelHive</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/images/logo.svg">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- lottie files -->
+  <script src="https://unpkg.com/lottie-web@5.12.0/build/player/lottie.min.js"></script>
+  <!-- analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JX4RNPLNFF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JX4RNPLNFF');
+  </script>
+  <!-- <script type="module">
+    import { confetti } from 'https://cdn.jsdelivr.net/npm/tsparticles-confetti/+esm';
+    window.confetti
+     = confetti;
+  </script> -->
 
+  <!-- ts particles -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/2.12.0/tsparticles.bundle.min.js"></script>
 
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://padelhivelb.com/">
+  <meta property="og:title" content="PadelHiveLB">
+  <meta property="og:description" content="Discover and register for padel tournaments across Lebanon – all in one place. PadelHiveLB connects players to events from north to south, making it easier than ever to compete, track results, and stay in the game.">
+  <meta property="og:image" content="/assets/images/padelhive_logo.png">
 </head>
 <body class="mat-typography">
   <app-root></app-root>

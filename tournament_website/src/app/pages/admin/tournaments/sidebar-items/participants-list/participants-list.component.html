@@ -1,0 +1,127 @@
+<section id="teams-section" class="teams-page">
+  <!-- Header -->
+  <div class="teams-header" [ngClass]="{groupsTab: chosenTab === 'groups'}" >
+    <div *ngIf="chosenTab === 'participants'" class="header-left">
+      <h2 class="page-title">All Teams</h2>
+      <p class="page-subtitle">Manage and track all support teams</p>
+    </div>
+
+    <div *ngIf="chosenTab === 'groups'" class="header-left">
+      <h2 class="page-title">All Groups</h2>
+    </div>
+    
+    <div class="header-right">
+      
+      <div class="tabs-wrapper">
+        <div class="tab" (click)="onPressedTab('participants')" [ngClass]="{active: chosenTab === 'participants'}">Manage Participants</div>
+        <div class="tab" (click)="onPressedTab('groups')" [ngClass]="{active: chosenTab === 'groups'}">Manage Groups</div>
+      </div>
+      
+      <div class="teams-actions" *ngIf="chosenTab === 'participants'">
+        <!-- Search -->
+        <div class="search-box">
+          <input
+            type="text"
+            id="ticket-search"
+            class="search-input"
+            placeholder="Search teams..."
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="onSearchChange($event)"
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+  
+        <!-- View Toggle -->
+        <div class="view-toggle">
+          <button class="view-btn" (click)="onPressedAddTeam()"> Add Team</button>
+          <button class="view-btn csv-btn" (click)="onPressedCSV()">📂 Export CSV</button>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+  <!-- If participants -->
+  <div class="participants-wrapper" *ngIf="chosenTab === 'participants'">
+    <!-- Table View -->
+    <div id="table-view" class="teams-view active">
+      <table class="teams-table">
+        <thead>
+          <tr>
+            <th>Player 1</th>
+            <th>Player 2</th>
+            <th>Category</th>
+            <th>Phone</th>
+            <th>Team</th>
+            <th>District</th>
+            <th>Comment</th>
+            <th>Registered On</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of paginatedParticipants" >
+            <td>{{p.player1_name}}</td>
+            <td>{{p.player2_name}}</td>
+            <td>{{p.category}}</td>
+            <td>{{p.phone_number}}</td>
+            <td>{{p.team_name}}</td>
+            <td>{{p.district}}</td>
+            <td>{{p.comment}}</td>
+            <td>{{p.created_at}}</td>
+            <td class="actions-column">
+              <button mat-icon-button (click)="onPressedDetails(p)" aria-label="View Details" class="action-btn">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button (click)="onPressedEdit(p)" aria-label="Edit" class="action-btn">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Card View -->
+    <div id="cards-view" class="teams-view cards-view">
+      <div class="cards-grid" id="teams-cards">
+        <p>Loading teams...</p>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <div class="pagination-info">
+        Showing 
+        <span>{{ (currentPage - 1) * pageSize + 1 }}</span>–
+        <span>{{ getMath()}}</span>
+        of <span>{{ totalItems }}</span> teams
+      </div>
+      <div class="pagination-controls">
+        <button class="pagination-btn" (click)="prevPage()" [disabled]="currentPage === 1">⬅ Prev</button>
+
+        <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+          <button 
+            class="pagination-btn" 
+            [class.active]="currentPage === i + 1" 
+            (click)="goToPage(i + 1)">
+            {{ i + 1 }}
+          </button>
+        </ng-container>
+
+        <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">Next ➡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- If groups -->
+   <ng-container class="groups-wrapper" *ngIf="chosenTab === 'groups'">
+      <app-manage-groups></app-manage-groups>
+   </ng-container>
+
+</section>

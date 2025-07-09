@@ -1,0 +1,306 @@
+*{
+    box-sizing: border-box;
+}
+/* Page Wrapper */
+.page-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Page Title */
+.page-title {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
+}
+
+.page-title::after {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 270px;
+  background-color: #0284c7;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  border-radius: 2px;
+}
+
+/* Section */
+.form-section {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Section Header */
+.section-header {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Section Body */
+.section-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 0.4rem;
+}
+
+/* Inputs & Selects */
+.form-group input,
+.form-group select {
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #ffffff;
+  transition: border 0.2s;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+    border-color: #0284c7;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #0ea5e9;
+  outline: none;
+}
+
+/* Quill Editor Styling */
+.quill-editor {
+  border: 1px solid #cbd5e1;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+/* Radio Button for elimination type */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.radio-option {
+  position: relative;
+  padding-left: 28px;
+  margin-left: 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #334155;
+  user-select: none;
+}
+
+.radio-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-option .custom-radio {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border: 2px solid #94a3b8;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.radio-option input[type="radio"]:checked ~ .custom-radio {
+  border-color: #0ea5e9;
+  background-color: #0ea5e9;
+}
+
+.radio-option .custom-radio::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio-option input[type="radio"]:checked ~ .custom-radio::after {
+  display: block;
+}
+
+.radio-option .custom-radio::after {
+  top: 4px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+}
+
+.option-content select {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+
+
+/* Submit Button */
+.submit-row {
+  text-align: right;
+  margin-top: 2rem;
+}
+
+.submit-btn {
+  background-color: #0ea5e9;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit-btn:hover {
+  background-color: #0284c7;
+}
+
+/* Required Indicator */
+.required {
+  color: red;
+  margin-left: 2px;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+input.invalid,
+select.invalid,
+textarea.invalid {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+/* Disabled button styling */
+.submit-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+
+/* Registration Styling */
+.reg-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.free-btn,.paid-btn {
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background-color: white;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.4rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.free-btn.active, .paid-btn.active {
+    background-color: var(--accent-cyan);
+    color: white;
+    border-color: #0ea5e9;
+}
+
+/* advanced section */
+.advanced-section:hover {
+    cursor: pointer;
+    background-color: #f1f5f994;
+
+}
+
+.tabs-wrapper {
+    margin: 0.5rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.tab {
+  position: relative;
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #64748b;
+  transition: color 0.3s ease-in-out;
+  text-align: center;
+}
+
+.tab:hover,
+.tab.active {
+  color: #0284c7;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 2px;
+  background-color: #0284c7;
+  transition: transform 0.3s ease-in-out;
+}
+
+.tab:hover::after,
+.tab.active::after {
+  transform: translateX(-50%) scaleX(1);
+}

@@ -49,7 +49,7 @@ export class RegisterAdminDialogComponent {
         },
         error: (err) => {
           console.error('Error occurred during registration:', err);
-          
+
           alert('Failed to register admin. Please try again.');
         },
       });

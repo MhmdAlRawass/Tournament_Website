@@ -1,5 +1,5 @@
 <div *ngIf="isLoading" class="loading-overlay">
-  <mat-spinner></mat-spinner>
+  <mat-spinner strokeWidth="4"></mat-spinner>
 </div>
 <div class="container">
   <div class="registration-card">
@@ -13,21 +13,60 @@
         <div class="section-title">Select Your Category</div>
 
         <div class="category-group">
+          <!-- Hidden reference to ngModel outside the *ngFor -->
+          <input
+            hidden
+            name="category"
+            [(ngModel)]="formData.category"
+            required
+            #categoryModel="ngModel"
+          />
+
           <div *ngFor="let cat of categories" class="category-option">
             <input
               type="radio"
               [id]="'category-' + cat"
               name="category"
               class="category-radio"
-              [(ngModel)]="formData.category"
               [value]="cat"
+              [(ngModel)]="formData.category"
               required
             />
             <label [for]="'category-' + cat" class="category-label">
               {{ cat }}
             </label>
           </div>
+
         </div>
+        <!-- Validation message -->
+        <div
+          class="validation-msg"
+          style="text-align: center;"
+          *ngIf="categoryModel.invalid && (categoryModel.touched)">
+          Please select a category.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <select
+          class="form-input"
+          name="district"
+          [(ngModel)]="formData.district"
+        >
+          <option value="" selected disabled>Select المفوضية/الفوج (optional)</option>
+          <option *ngFor="let district of districts" [value]="district">{{ district }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Team Name (optional)"
+          name="team_name"
+          [(ngModel)]="formData.team_name"
+        />
       </div>
 
       <div class="form-group">
@@ -69,21 +108,20 @@
           name="phoneNumber"
           minlength="8"
           [(ngModel)]="formData.phone_number"
-          [ngModel]="formData.phone_number === 0 ? null : formData.phone_number"
-
           required
           #phoneNumber="ngModel"
         />
-        <ng-container *ngIf="formData.phone_number">
-          <div class="validation-msg" *ngIf="phoneNumber.invalid && isFormSubmitted">
-            Phone Number is required and must be valid.
-          </div>
-          <div class="input-description">
-            We'll use this number to contact you if we need any additional
-            information about your registration or tournament details.
-          </div>
-        </ng-container>
+
+        <div class="validation-msg" *ngIf="phoneNumber.invalid && (isFormSubmitted)">
+          Phone Number is required and must be valid.
+        </div>
+
+        <div class="input-description">
+          We'll use this number to contact you if we need any additional
+          information about your registration or tournament details.
+        </div>
       </div>
+
 
       <button
         color="primary"

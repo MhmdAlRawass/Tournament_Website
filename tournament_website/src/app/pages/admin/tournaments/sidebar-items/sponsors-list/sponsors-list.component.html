@@ -1,0 +1,64 @@
+<section id="teams-section" class="teams-page">
+    <!-- Header -->
+    <div class="teams-header">
+        <div class="header-left">
+            <h2 class="page-title">All Sponsors</h2>
+            <p class="page-subtitle">Manage and track all sponsors</p>
+        </div>
+
+        <div class="header-right">
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <button class="view-btn" (click)="onPressedAddSponsor()"> Add Sponsor</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- If participants -->
+    <div class="participants-wrapper">
+        <!-- Table View -->
+        <div id="table-view" class="teams-view active">
+            <table class="teams-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Shown</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of sponsors">
+                        <td>{{p.name}}</td>
+                        <td><img [src]="p.image" width="100px" height="auto"></td>
+                        <td><input type="checkbox" [(ngModel)]="p.isShown" name="shown" id="shown"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <!-- <div class="pagination">
+            <div class="pagination-info">
+                Showing
+                <span>{{ (currentPage - 1) * pageSize + 1 }}</span>–
+                <span>{{ getMath()}}</span>
+                of <span>{{ totalItems }}</span> teams
+            </div>
+            <div class="pagination-controls">
+                <button class="pagination-btn" (click)="prevPage()" [disabled]="currentPage === 1">⬅ Prev</button>
+
+                <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+                    <button class="pagination-btn" [class.active]="currentPage === i + 1" (click)="goToPage(i + 1)">
+                        {{ i + 1 }}
+                    </button>
+                </ng-container>
+
+                <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">Next
+                    ➡</button>
+            </div>
+        </div>
+    </div> -->
+
+</section>

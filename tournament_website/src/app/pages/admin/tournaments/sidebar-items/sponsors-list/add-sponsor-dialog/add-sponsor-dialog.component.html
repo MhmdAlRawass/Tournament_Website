@@ -1,0 +1,40 @@
+<div class="form-container"  >
+    <div class="form-header">
+        <div class="title">
+            Add Sponsor
+        </div>
+        <div class="close-btn" (click)="onPressedClose()">
+            X
+        </div>
+    </div>
+    
+    <form #form="ngForm">
+
+        <div class="form-body">
+
+            <div class="form-padding">
+                <div class="form-section">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" placeholder="Name"  />
+                </div>
+
+                <div class="form-section">
+                    <label for="image">Logo</label>
+                    <input type="file" name="image" placeholder="Image" />
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+    <div class="form-bottom">
+        <button class="cancel-btn" (click)="onPressedClose()">
+            Cancel
+        </button>
+        <button class="save-btn">
+            Save Changes
+        </button>
+    </div>
+    
+</div>

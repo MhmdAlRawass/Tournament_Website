@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { Tournament } from '../models/tournament.model';
 import { Match, MatchesByGroup, Participant } from '../models/match.model';
 
 @Injectable({ providedIn: 'root' })
 export class TournamentService {
+  private baseUrl = 'https://padelhive-node.onrender.com/api';
+
   private tournaments: Tournament[] = [];
-
-  private participants: Participant[] = [];
-
-  private matches: Match[] = [];
+  private tournamentCache = new Map<number, Tournament>();
+  private matchesCache = new Map<number, Match[]>();
+  private participantsCache = new Map<number, Participant[]>();
+  private statsCache = new Map<number, any[]>();
 
   private participantsStat: any[] = [];
 
@@ -26,10 +28,13 @@ export class TournamentService {
   constructor(private http: HttpClient) {}
 
   getTournaments(): Observable<Tournament[]> {
-    return this.http.get<any[]>('http://localhost:3000/api/tournaments').pipe(
+    if (this.tournaments.length) return of(this.tournaments);
+
+    return this.http.get<any[]>(`${this.baseUrl}/tournaments`).pipe(
       map((rawList) => rawList.map((raw) => this.mapToTournament(raw))),
       map((tournaments) => {
         this.tournaments = tournaments;
+        tournaments.forEach((t) => this.tournamentCache.set(t.id, t));
         return tournaments;
       })
     );
@@ -40,12 +45,11 @@ export class TournamentService {
   }
 
   getTournamentById(id: number): Tournament | undefined {
-    return this.tournaments.find((t) => t.id === id);
+    return this.tournamentCache.get(id);
   }
 
   private mapToTournament(raw: any): Tournament {
     const t = raw.tournament || raw;
-
     return {
       id: t.id,
       name: t.name,
@@ -63,85 +67,104 @@ export class TournamentService {
     };
   }
 
-  // Matches
   fetchMatches(tid: number): Observable<Match[]> {
+    if (this.matchesCache.has(tid)) {
+      const cached = this.matchesCache.get(tid)!;
+      this.matchesSubject.next(cached);
+      return of(cached);
+    }
+
     return this.http
-      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/matches`)
+      .get<any[]>(`${this.baseUrl}/tournament/${tid}/matches`)
       .pipe(
         map((res) => res.map((item) => this.mapToMatch(item.match))),
         map((matches) => {
+          this.matchesCache.set(tid, matches);
           this.matchesSubject.next(matches);
           return matches;
         })
       );
   }
 
-  // Participants
   fetchParticipants(tid: number): Observable<Participant[]> {
+    if (this.participantsCache.has(tid)) {
+      const cached = this.participantsCache.get(tid)!;
+      this.participantsSubject.next(cached);
+      return of(cached);
+    }
+
     return this.http
-      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/participants`)
+      .get<any[]>(`${this.baseUrl}/tournament/${tid}/participants`)
       .pipe(
         map((res) =>
           res.map((item) => this.mapToParticipant(item.participant))
         ),
         map((participants) => {
+          this.participantsCache.set(tid, participants);
           this.participantsSubject.next(participants);
           return participants;
         })
       );
   }
 
-  // Stats
   fetchStats(tid: number): Observable<any[]> {
+    if (this.statsCache.has(tid)) {
+      const cached = this.statsCache.get(tid)!;
+      this.statsSubject.next(cached);
+      return of(cached);
+    }
+
     return this.http
-      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/group-standings`)
+      .get<any[]>(`${this.baseUrl}/tournament/${tid}/group-standings`)
       .pipe(
         map((res) => {
+          this.statsCache.set(tid, res);
           this.statsSubject.next(res);
           return res;
         })
       );
   }
 
-  // get participants
   private mapToParticipant(raw: any): Participant {
     return {
       id: raw.id,
       name: raw.name,
       seed: raw.seed,
       group_player_ids: raw.group_player_ids,
+      group_id: raw.group_id,
     };
   }
 
   getParticipants(tournamentId: number): Observable<Participant[]> {
+    if (this.participantsCache.has(tournamentId)) {
+      return of(this.participantsCache.get(tournamentId)!);
+    }
+
     return this.http
-      .get<any[]>(
-        `http://localhost:3000/api/tournament/${tournamentId}/participants`
-      )
+      .get<any[]>(`${this.baseUrl}/tournament/${tournamentId}/participants`)
       .pipe(
         map((res) => {
           const participants = res.map((item) =>
             this.mapToParticipant(item.participant)
           );
-          this.participants = participants;
+          this.participantsCache.set(tournamentId, participants);
           return participants;
         })
       );
   }
 
-  // for group stage
   getParticipantById(pid: number): Participant | undefined {
-    return (
-      this.participants.find((p) => p.group_player_ids[0] === pid) ?? undefined
-    );
+    return Array.from(this.participantsCache.values())
+      .flat()
+      .find((p) => p.group_player_ids[0] === pid);
   }
 
-  // for final stage
   getParticipantByIdForFinalStage(pid: number): Participant | undefined {
-    return this.participants.find((p) => p.id === pid) ?? undefined;
+    return Array.from(this.participantsCache.values())
+      .flat()
+      .find((p) => p.id === pid);
   }
 
-  // get matches
   private mapToMatch(raw: any): Match {
     return {
       id: raw.id,
@@ -156,42 +179,44 @@ export class TournamentService {
   }
 
   getMatches(tournamentId: number): Observable<Match[]> {
+    if (this.matchesCache.has(tournamentId)) {
+      return of(this.matchesCache.get(tournamentId)!);
+    }
+
     return this.http
-      .get<any[]>(
-        `http://localhost:3000/api/tournament/${tournamentId}/matches`
-      )
+      .get<any[]>(`${this.baseUrl}/tournament/${tournamentId}/matches`)
       .pipe(
         map((res) => {
           const matches = res.map((item) => this.mapToMatch(item.match));
-          this.matches = matches;
+          this.matchesCache.set(tournamentId, matches);
           return matches;
         })
       );
   }
 
-  // for grouping matches
   groupMatchesByGroupAndRound(matches: Match[]): MatchesByGroup {
     const grouped: MatchesByGroup = {};
 
     matches.forEach((match) => {
-      if (!grouped[match.group_id]) {
-        grouped[match.group_id] = {};
-      }
-      if (!grouped[match.group_id][match.round]) {
+      if (!grouped[match.group_id]) grouped[match.group_id] = {};
+      if (!grouped[match.group_id][match.round])
         grouped[match.group_id][match.round] = [];
-      }
       grouped[match.group_id][match.round].push(match);
     });
 
     return grouped;
   }
 
-  // get participant statistics
   getParticipantsStat(tid: number): Observable<any[]> {
+    if (this.statsCache.has(tid)) {
+      return of(this.statsCache.get(tid)!);
+    }
+
     return this.http
-      .get<any[]>(`http://localhost:3000/api/tournament/${tid}/group-standings`)
+      .get<any[]>(`${this.baseUrl}/tournament/${tid}/group-standings`)
       .pipe(
         map((res) => {
+          this.statsCache.set(tid, res);
           this.participantsStat = res;
           return res;
         })

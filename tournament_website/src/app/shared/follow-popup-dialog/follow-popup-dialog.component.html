@@ -1,0 +1,18 @@
+<div [ngClass]="{ 'fade-in': !isClosing, 'fade-out': isClosing }" class="popup-container-glass">
+  <button class="close-btn" (click)="onPressedClose()">&times;</button>
+
+  <div class="instagram-icon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+  </div>
+
+  <h2 class="popup-title">Follow Us</h2>
+  <p class="popup-subtitle">
+    Stay updated with tournaments, scores, community events & behind-the-scenes!
+  </p>
+
+  <button class="follow-btn" (click)="onFollow()">
+    <!-- padelhivelb -->
+     <img src="../../../assets/images/image.png" width="130px" height="auto" alt="">
+  </button>
+
+</div>

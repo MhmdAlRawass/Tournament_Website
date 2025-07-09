@@ -1,10 +1,18 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav #sidenav [mode]="sidenavMode" [opened]="sidenavOpened" class="mat-elevation-z4">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <!-- <app-header></app-header> -->
+    @if (isSmallScreen) {
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="sidenav.toggle()" >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </mat-toolbar>
+
+    }
+
     <div class="content">
       <router-outlet></router-outlet>
     </div>

@@ -1,0 +1,67 @@
+<div class="form-container" *ngIf="data" >
+    <div class="form-header">
+        <div class="title">
+            Edit Team
+        </div>
+        <div class="close-btn" (click)="onPressedDelete()">
+            <mat-icon style="color: #d21404;">delete</mat-icon>
+        </div>
+        <div class="close-btn" (click)="onPressedClose()">
+            X
+        </div>
+    </div>
+    
+    <form #form="ngForm">
+
+        <div class="form-body">
+
+            <div class="form-grid">
+                <div class="form-section">
+                    <label for="player1_name">Player 1</label>
+                    <input type="text" name="player1_name" placeholder="player 1 name" [(ngModel)]="data.player1_name" required />
+                </div>
+
+                <div class="form-section">
+                    <label for="player2_name">Player 2</label>
+                    <input type="text" name="player2_name" placeholder="player 2 name" [(ngModel)]="data.player2_name" required/>
+                </div>
+
+                <div class="form-section">
+                    <label for="category">Category</label>
+                    <input type="text" name="category" [(ngModel)]="data.category" required/>
+                </div>
+
+                <div class="form-section">
+                    <label for="phone">Phone</label>
+                    <input type="number" name="phone" [(ngModel)]="data.phone_number" required/>
+                </div>
+
+                <div class="form-section">
+                    <label for="team">Team</label>
+                    <input type="text" name="team" placeholder="team name" [(ngModel)]="data.team_name" required/>
+                </div>
+
+                <div class="form-section">
+                    <label for="district">District</label>
+                    <input type="text" name="district" [(ngModel)]="data.district" required/>
+                </div>
+
+                <div class="form-section" style="grid-column: span 2">
+                    <label for="comment">Comment</label>
+                    <textarea name="comment" id="" placeholder="Comment (optional)..." [(ngModel)]="data.comment"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="form-bottom">
+        <button class="cancel-btn" (click)="onPressedClose()">
+            Cancel
+        </button>
+        <button class="save-btn">
+            Save Changes
+        </button>
+    </div>
+    
+</div>

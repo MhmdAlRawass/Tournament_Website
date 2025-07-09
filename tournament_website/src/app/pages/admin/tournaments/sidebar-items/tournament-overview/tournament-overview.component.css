@@ -1,0 +1,183 @@
+*{
+    box-sizing: border-box;
+}
+
+.tournament-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.tournament-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.tournament-header h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: #1e293b;
+}
+
+.public-btn {
+  background-color: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.public-btn:hover {
+  background-color: #0284c7;
+}
+
+/* Summary Statistics */
+.summary-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #f1f5f9;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-card h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.stat-card p {
+  margin: 0.5rem 0 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0f172a;
+}
+
+.status-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background-color: #bbf7d0;
+  color: #15803d;
+}
+
+/* Section Card */
+.section-card {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #1e293b;
+}
+
+.match-stats-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.match-stat {
+  flex: 1 1 180px;
+  background: #e2e8f0;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.match-stat span {
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.match-stat strong {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+/* Participants */
+.participants-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.participant-tile {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+}
+
+.avatar {
+  font-size: 1.4rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #e0f2fe;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.info .name {
+  font-weight: 600;
+  margin: 0;
+  color: #1e293b;
+}
+
+.info .members {
+  font-size: 0.85rem;
+  margin: 0.2rem 0 0;
+  color: #64748b;
+}
+
+.show-all-btn {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.show-all-btn:hover {
+  background-color: #f1f5f9;
+}

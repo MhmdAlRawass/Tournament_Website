@@ -1,28 +1,49 @@
 <div class="fullscreen-container" #fullscreenContainer>
-
-  @if (isFullScreen) {
-    <div class="header">
-      <div (click)="enterFullscreen()" class="fullscreen-btn">
-        Full Screen View <mat-icon>fullscreen</mat-icon>
-      </div>
+  <div *ngIf="!isFullScreen" class="header">
+    <div (click)="enterFullscreen()" class="fullscreen-btn">
+      Full Screen View <mat-icon>fullscreen</mat-icon>
     </div>
-  }
+  </div>
 
-  <div class="theme theme-dark-trendy fullscreen-container">
-    <div class="bracket disable-image">
-      <div class="column" *ngFor="let round of bracketData">
-        <div class="match" *ngFor="let match of round.matches" [ngClass]="match.winner === 'top' ? 'winner-top' : 'winner-bottom'">
+  <div class="logo-container" *ngIf="isFullScreen">
+    <img src="../../../../assets/images/image.png" alt="logo" />
+  </div>
+
+  <div class="theme theme-dark-trendy fullscreen-inner">
+    <div id="tsparticles-fullscreen"></div>
+
+
+    <div class="bracket disable-image" [ngStyle]="isFullScreen ? {'margin': 'auto'} : {'margin' : '0'}">
+      <div class="column" *ngFor="let round of bracketData; let columnIndex = index;">
+        <div
+          class="match"
+          *ngFor="let match of round.matches; let i = index;"
+          [ngClass]="match.winner === 'top' ? 'winner-top' : 'winner-bottom'"
+        >
+
+
+          <ng-container
+            *ngIf="timeSlots?.[tournament?.id]?.[columnIndex]?.[i] as timeSlot"
+          >
+            <div class="match-time-wrapper">
+              <div class="match-time">
+                {{ timeSlots?.[tournament?.id]?.[columnIndex]?.[i] || 'N/A' }}
+              </div>
+            </div>
+          </ng-container>
+
+
+
           <div class="match-top team">
-            <!-- <span class="image"></span> -->
             <span class="seed">{{ match.top.seed }}</span>
             <span class="name">{{ match.top.name }}</span>
-            <span class="score">{{ match.top.score }}</span>
+            <span class="score">{{ isScoreNaN(match.top.score) ? 0:  match.top.score }}</span>
           </div>
+
           <div class="match-bottom team">
-            <!-- <span class="image"></span> -->
             <span class="seed">{{ match.bottom.seed }}</span>
             <span class="name">{{ match.bottom.name }}</span>
-            <span class="score">{{ match.bottom.score }}</span>
+            <span class="score">{{ isScoreNaN(match.bottom.score) ? 0:  match.bottom.score }}</span>
           </div>
 
           <div class="match-lines">
@@ -35,6 +56,20 @@
         </div>
       </div>
     </div>
-  </div>
 
+    <section class="logo-carousel">
+      <div class="logo-header">
+        <h3>Our <span>Sponsors</span></h3>
+      </div>
+
+      <div class="logos">
+        <div class="logos-slide">
+          <a *ngFor="let brand of brands">
+            <img *ngIf="brand.image" [src]="brand.image.url" [alt]="brand.name" />
+          </a>
+        </div>
+      </div>
+    </section>  
+
+  </div>
 </div>

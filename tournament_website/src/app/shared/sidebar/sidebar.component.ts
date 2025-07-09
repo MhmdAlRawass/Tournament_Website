@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  SidebarData,
+  SidebarItem,
+  SidebarService,
+} from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,40 +18,42 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnDestroy {
   appName: string = 'Tournament Website';
 
-  navItems = [
-    // {
-    //   label: 'Dashboard',
-    //   icon: 'dashboard',
-    //   route: '/admin/dashboard',
-    //   exact: true,
-    // },
-    // {
-    //   label: 'Tournaments',
-    //   icon: 'emoji_events',
-    //   route: '/admin/tournaments',
-    //   exact: true,
-    // },
-    {
-      label: 'Participants',
-      icon: 'people',
-      route: '/admin/participants',
-      exact: true,
-    },
-    {
-      label: 'Admins',
-      icon: 'people',
-      route: '/admin/admins',
-      exact: true,
-    },
-  ];
+  sidebarData: SidebarData = {
+    logo: '',
+    title: '',
+    subtitle: '',
+    list: [],
+  };
+
+  private subscription: PushSubscription;
+
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    private sidebarService: SidebarService
+  ) {
+    this.sidebarService.items$.subscribe((items) => {
+      this.sidebarData = items;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  toggleDropdown(item: SidebarItem) {
+    item.expanded = !item.expanded;
+  }
+
+  // backward to touranments
+  goBack() {
+    this.router.navigate(['/admin/tournaments'])
+  }
+
   onLogout() {
     this.authService.logout();
     this.snackBar.open('Logged out successfully', 'Close', { duration: 3000 });

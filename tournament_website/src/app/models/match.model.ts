@@ -10,6 +10,7 @@ export interface Match {
 }
 
 export interface Participant {
+  group_id: number;
   id: number;
   group_player_ids: number[];
   name: string;
@@ -34,4 +35,5 @@ export interface ParticipantStat {
   points: number;
   history: string[];
   totalScore: number;
+  match_diffs: number;
 }

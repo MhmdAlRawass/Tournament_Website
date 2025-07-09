@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000/api/auth';
+  // private baseUrl = 'http://localhost:3000/api/auth';
+  private baseUrl = 'https://padelhive-node.onrender.com/api/auth';
   private tokenKey = 'auth_token';
 
   constructor(private http: HttpClient) {}

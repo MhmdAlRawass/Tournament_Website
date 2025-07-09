@@ -1,58 +1,341 @@
-<div class="tournament-container">
-  <div class="tournament-header">
-    <h1>Welcome to the Tournament Page</h1>
-    <p>Here you can find all the latest tournaments and events.</p>
-  </div>
-  <div class="tournament-card" *ngFor="let t of tournaments">
-    <div class="tournament-left">
-      <img class="tournament-logo" src='assets/images/game-img-1.png' alt="Tournament Logo" />
-    </div>
+<div class="home-container">
 
-    <div class="tournament-center">
-      <h2 class="tournament-title">{{ t.name }}</h2>
+    <!-- hero section -->
+    <section class="hero-section">
+        <!-- Home Header -->
+        <header class="header">
+            <div class="header-logo">
+                <img src="assets/images/home/logo.webp" loading="lazy" alt="">
+            </div>
 
-      <div class="info-line">
-        <span class="icon">⏳</span>
-        <span class="countdown">Starts in {{ t.startTime }}</span>
-      </div>
+            <div class="nav-list">
+                <ul>
+                    <li class="active">Home</li>
+                    <li>Tournaments</li>
+                    <li>Services</li>
+                    <li>About Us</li>
+                </ul>
+            </div>
 
-      <div class="info-line">
-        <span class="icon"><mat-icon>calendar_today</mat-icon></span>
-        <span class="start-time">{{ t.startTime | date:'medium' }}</span>
-      </div>
+            <div class="login-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                User Access
+            </div>
 
-      <div class="stats-grid">
-        <div class="stat-box">
-          <p class="stat-label">Entry/Player</p>
-          <p class="stat-value">${{ t.entryFee }}</p>
-        </div>
-        <div class="stat-box">
-          <p class="stat-label">Team Size</p>
-          <p class="stat-value">2 vs 2</p>
-        </div>
-        <div class="stat-box">
-          <p class="stat-label">Max Teams</p>
-          <p class="stat-value">16</p>
-        </div>
-        <div class="stat-box">
-          <p class="stat-label">Enrolled</p>
-          <p class="stat-value">{{t.registeredParticipants}}</p>
-        </div>
-        <div class="stat-box">
-          <p class="stat-label">Category </p>
-          <p class="stat-value">{{t.category}}</p>
-        </div>
-      </div>
-    </div>
+        </header>
 
-    <div class="tournament-right">
-      <p class="prize-label">🏆 PRIZE</p>
-      <p class="prize-amount">{{ t.prizePool }}</p>
-      <button mat-raised-button class="view-btn" (click)="viewTournamentDetails(t)">
-        View Tournament
-      </button>
-      <p class="prize-note">Top 3 Players Win<br />a Cash Prize</p>
-    </div>
-  </div>
+        <div class="hero-content-container">
+            <div class="left-section">
+                <div class="social-wrapper">
+                    <div class="link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <circle cx="17.5" cy="6.5" r="0.5" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <div class="outline-text">
+                        PADELHIVE
+                    </div>
+
+                    <div class="text">
+                        The Official Governing Body of Padel in Leb
+                    </div>
+                </div>
+            </div>
+            <div class="right-section">
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- numbers section -->
+    <section class="numbers-section">
+        <div class="numbers-header">
+            <h1>PadelHive <span class="outline-text">In Numbers</span></h1>
+            <p>In June 2019 UAE Sports Ministry decree officially recognizing padel as a sport with full government
+                support.</p>
+        </div>
+
+        <div class="numbers-col">
+            <div class="number-figure">
+                <div class="number">2000+</div>
+                <div class="desc">Players around Leb</div>
+            </div>
+
+            <div class="number-figure">
+                <div class="number">2000+</div>
+                <div class="desc">Players around Leb</div>
+            </div>
+
+            <div class="number-figure">
+                <div class="number">2000+</div>
+                <div class="desc">Players around Leb</div>
+            </div>
+
+            <div class="number-figure">
+                <div class="number">2000+</div>
+                <div class="desc">Players around Leb</div>
+            </div>
+
+            <div class="number-figure">
+                <div class="number">2000+</div>
+                <div class="desc">Players around Leb</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- services section -->
+    <section class="services-section">
+
+        <div class="services-header">
+            <div class="desc">
+                <div class="desc-top">
+                    <div class="green-circle"></div>
+                    <h5>Our Services</h5>
+                </div>
+
+                <div class="desc-text">
+                    PADELHIVE <span class="outline-text">Services</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-list">
+            <div class="service service-active">
+                <div class="service-top">
+                    <div class="apply-btn">
+                        Apply Now
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </div>
+
+                <div class="service-bottom">
+                    <h2>Players MemberShip</h2>
+                    <p>Be an official Registered Player Leb through PADELHIVE</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <div class="service-top">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </div>
+
+                <div class="service-bottom">
+                    <h2>Players MemberShip</h2>
+                    <p>Be an official Registered Player Leb through PADELHIVE</p>
+                </div>
+            </div>
+
+            <div class="service">
+                <div class="service-top">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </div>
+
+                <div class="service-bottom">
+                    <h2>Players MemberShip</h2>
+                    <p>Be an official Registered Player Leb through PADELHIVE</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- tournaments & events section -->
+    <section class="tournaments-section">
+        <div class="tournaments-header">
+            <div class="left-section">
+                <div class="desc">
+                    <div class="desc-top">
+                        <div class="green-circle"></div>
+                        <h5>Tournaments & Events</h5>
+                    </div>
+
+                    <div class="desc-text">
+                        Tournaments & <span class="outline-text">Events</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-section">
+
+                <div class="dropdown" [ngClass]="{ 'open': isDropdownOpen }">
+                    <div class="dropdown-title" (click)="toggleDropdown()">
+                        Upcoming
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+
+                    </div>
+
+                    <div class="dropdown-list">
+                        <div class="dropdown-item">Upcoming</div>
+                        <div class="dropdown-item">Completed</div>
+                    </div>
+                </div>
+
+                <div class="navigate-arrow-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="tournaments-list">
+            <div class="tournament">
+                <div class="t-img">
+                    <img src="/assets/images/home/tournament-1.webp" alt="" class="t-bg-img" loading="lazy">
+                    <div class="t-time">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                        </svg>
+                        13-15 JUN 2025
+                    </div>
+                    <div class="t-location">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        Padel Square - Saida
+                    </div>
+                </div>
+
+                <div class="t-desc">
+                    <div class="t-desc-top">
+                        <h4>100 OPEN</h4>
+                        <p>Part of Mashreq Padel Tour Ranking Tournaments</p>
+                    </div>
+
+                    <div class="t-desc-bottom">
+                        <div class="t-desc-logo">
+                            <img src="/assets/images/home/logo.webp" loading="lazy" alt="">
+                        </div>
+
+                        <div class="t-desc-btn">
+                            Learn More
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer-section">
+        <div class="footer-header">
+            <div class="footer-logo">
+            <img src="assets/images/home/logo.webp" alt="UAEPA Logo" loading="lazy">
+            </div>
+
+            <div class="newsletter-wrapper">
+            <div class="subscribe-text">
+                <h3>SUBSCRIBE TO OUR NEWSLETTER</h3>
+                <p>The latest news, articles, and resources, sent to your inbox weekly.</p>
+            </div>
+
+            <form class="newsletter-form">
+                <input type="email" placeholder="your email address" required />
+                <button type="submit" class="send-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+                </button>
+            </form>
+
+            <span class="validation-msg">Required</span>
+            </div>
+
+            <div class="socials-wrapper">
+            <div class="social-link">
+                <!-- YouTube -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 6.75v10.5h16.5V6.75H3.75zM9 10.5l6 3-6 3v-6z"/>
+                </svg>
+            </div>
+            <div class="social-link">
+                <!-- Instagram -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M8.25 4.5h7.5A3.75 3.75 0 0 1 19.5 8.25v7.5a3.75 3.75 0 0 1-3.75 3.75h-7.5A3.75 3.75 0 0 1 4.5 15.75v-7.5A3.75 3.75 0 0 1 8.25 4.5z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 8.25h.008v.008h-.008V8.25zM12 9.75a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5z" />
+                </svg>
+            </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <div class="footer-column">
+            <h4>Quick Links</h4>
+            <ul>
+                <li>Home</li>
+                <li>About Us</li>
+                <li>News & Events</li>
+                <li>Contact Us</li>
+                <li>Courts</li>
+            </ul>
+            </div>
+
+            <div class="footer-column">
+            <h4>Services</h4>
+            <ul>
+                <li>Ranking</li>
+                <li>Club Membership</li>
+                <li>NOC Request</li>
+            </ul>
+            </div>
+
+            <div class="footer-column">
+            <h4>Tournaments</h4>
+            <ul>
+                <li>Tournament Calendar</li>
+            </ul>
+            </div>
+
+            <div class="footer-column">
+            <h4>Ranking</h4>
+            <ul>
+                <li>Players Ranking</li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 United Arab Emirates Padel Association. All Rights Reserved.</p>
+        </div>
+        </footer>
+
 
 </div>

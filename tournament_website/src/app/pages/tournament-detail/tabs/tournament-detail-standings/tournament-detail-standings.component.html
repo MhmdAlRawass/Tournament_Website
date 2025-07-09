@@ -1,0 +1,54 @@
+<div class="matches-container" >
+    <div class="groups-tab-wrapper">
+        <div class="groups-tab-scroll">
+            <div
+            class="tab"
+            *ngFor="let groupId of objectKeys(groupedStats); let i = index"
+            [class.active]="selectedGroup === groupId"
+            (click)="selectGroup(groupId)"
+            >
+            {{ getCustomGroupLabel(i) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="standings-table-wrapper">
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>Wins</th>
+                    <th>Loses</th>
+                    <th>Match Diff</th>
+                    <th>Pts</th>
+                    <th>Match History</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let stat of sortedGroupedStats[selectedGroup]; let i = index">
+                    <td>{{i+1}}</td>
+                    <td class="team-name">{{stat.name}}</td>
+                    <td>{{stat.matchWins}}</td>
+                    <td>{{stat.matchLosses}}</td>
+                    <td>{{stat.match_diffs || 0}}</td> 
+                    <td>{{stat.totalScore || 0}}</td>
+                    <td>
+                        <span *ngFor="let result of stat.history" class="badges-container">
+                            <span [ngClass]="{
+                                'win': result === 'W',
+                                'loss': result === 'L',
+                                'tie': result === 'T'
+                                
+                            }" class="badge" >
+                                {{ result.toUpperCase() }}
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

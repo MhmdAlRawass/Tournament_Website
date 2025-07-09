@@ -1,0 +1,199 @@
+<form #form="ngForm" (ngSubmit)="createTournament()" novalidate>
+  <div class="page-container">
+    <h2 class="page-title">New Tournament</h2>
+
+    <!-- SECTION: Basic Info -->
+    <div class="form-section">
+      <div class="section-header">Basic Info</div>
+      <div class="section-body">
+        <div class="form-group">
+          <label for="name">Tournament Name <span class="required">*</span></label>
+          <input type="text" id="name" name="tournamentName" [(ngModel)]="tournamentName" required />
+          <div class="error-msg" *ngIf="form.submitted && !tournamentName">
+            Tournament name is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="desc">Description (optional)</label>
+          <quill-editor [(ngModel)]="description" name="description" class="quill-editor" [ngModelOptions]="{standalone: true}"></quill-editor>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: Game Info -->
+    <div class="form-section">
+      <div class="section-header">Game Info</div>
+      <div class="section-body">
+        <div class="form-group">
+          <label for="category">Category <span class="required">*</span></label>
+          <select id="category" name="category" [(ngModel)]="category" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+          </select>
+          <div class="error-msg" *ngIf="form.submitted && !category">
+            Category is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="teams">Max Teams (optional)</label>
+          <input type="number" id="teams" name="maxTeams" min="2" [(ngModel)]="maxTeams" />
+        </div>
+
+        <div class="form-group">
+          <label>Type <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="tournamentType" value="single" [(ngModel)]="tournamentType" required />
+              <span class="custom-radio"></span> Single Stage
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="tournamentType" value="two" [(ngModel)]="tournamentType" />
+              <span class="custom-radio"></span> Two Stage
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="format">Format <span class="required">*</span></label>
+          <select id="format" name="format" [(ngModel)]="format" required>
+            <option value="single">Single Elimination</option>
+            <option value="double">Double Elimination</option>
+            <option value="round-robin">Round Robin</option>
+          </select>
+        </div>
+
+        <!-- Single Stage + Double Elimination -->
+        <div class="form-group-wrapper" *ngIf="tournamentType === 'single' && format === 'double'">
+          <div class="form-group">
+            <label>Grand Finals <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="grandFinals" value="1-2" [(ngModel)]="grandFinals" required />
+                <span class="custom-radio"></span> 1–2 Matches
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="grandFinals" value="1" [(ngModel)]="grandFinals" />
+                <span class="custom-radio"></span> 1 Match
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="grandFinals" value="0" [(ngModel)]="grandFinals" />
+                <span class="custom-radio"></span> None
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Round Robin -->
+        <div class="form-group-wrapper" *ngIf="format === 'round-robin'">
+          <div class="form-group">
+            <label for="participantsPlayCount">Participants play <span class="required">*</span></label>
+            <select name="participantsPlayCount" [(ngModel)]="participantsPlayCount" required>
+              <option value="once">Once</option>
+              <option value="twice">Twice</option>
+              <option value="three-times">Three Times</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rankingCriteria">Rank By <span class="required">*</span></label>
+            <select name="rankingCriteria" [(ngModel)]="rankingCriteria" required>
+              <option value="match-wins">Match Wins</option>
+              <option value="set-wins">Game/Set Wins</option>
+              <option value="set-win-percentage">Game/Set Win %</option>
+              <option value="set-difference">Game/Set W/L Difference</option>
+              <option value="points-scored">Points Scored</option>
+              <option value="points-difference">Points Difference</option>
+              <option value="custom">Custom (points system)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Two Stage -->
+        <div class="form-group-wrapper" *ngIf="tournamentType === 'two' && format !== 'round-robin'">
+          <div class="form-group">
+            <label for="groupParticipants">Participants per group <span class="required">*</span></label>
+            <input type="number" [(ngModel)]="groupParticipants" name="groupParticipants" required />
+          </div>
+          <div class="form-group">
+            <label for="advanceCount">Participants advance <span class="required">*</span></label>
+            <input type="number" [(ngModel)]="advanceCount" name="advanceCount" required />
+          </div>
+          <div class="form-group">
+            <label for="finalStageFormat">Final Stage Format</label>
+            <select name="finalStageFormat" [(ngModel)]="finalStageFormat">
+              <option value="single">Single Elimination</option>
+              <option value="double">Double Elimination</option>
+              <option value="round-robin">Round Robin</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: Registration -->
+    <div class="form-section">
+      <div class="section-header">Registration</div>
+      <div class="section-body">
+        <div class="form-group">
+          <label>Registration Fee</label>
+          <div class="reg-btn">
+            <button type="button" class="free-btn" [ngClass]="{ active: selectedFeeType === 'free' }" (click)="onPressedFeeType('free')">Free</button>
+            <button type="button" class="paid-btn" [ngClass]="{ active: selectedFeeType === 'paid' }" (click)="onPressedFeeType('paid')">Paid</button>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="selectedFeeType === 'paid'">
+          <label for="entryFee">Entry Fee ($) <span class="required">*</span></label>
+          <input type="number" name="entryFee" [(ngModel)]="entryFee" required />
+        </div>
+
+        <div class="form-group">
+          <label>Prize Pool ($)</label>
+          <input type="number" [(ngModel)]="prizePool" name="prizePool" />
+        </div>
+
+        <div class="form-group">
+          <label for="startDate">Start Date <span class="required">*</span></label>
+          <input type="date" name="startDate" [(ngModel)]="startDate" required />
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced -->
+    <div class="form-section">
+      <div class="section-header advanced-section" (click)="onPressedAdvanced()">➕ Advanced Options</div>
+
+      <div class="section-body" *ngIf="isPressedAdvanced">
+        <div class="tabs-wrapper">
+          <div class="tab" [ngClass]="{ active: advancedTab === 'tie-breaks' }" (click)="onPressedTabAdvanced('tie-breaks')">Tie Breaks</div>
+          <div class="tab" [ngClass]="{ active: advancedTab === 'group-tie' }" (click)="onPressedTabAdvanced('group-tie')">Group Tie Breaks</div>
+        </div>
+
+        <div class="form-group-wrapper" *ngIf="advancedTab === 'tie-breaks'">
+          <div class="form-group" *ngFor="let i of [0,1,2]">
+            <label for="tie-{{i+1}}">Tie Break #{{i + 1}}</label>
+            <select name="tie-{{i+1}}" [(ngModel)]="advancedRankingCriteria[i]">
+              <option value="match-wins">Match Wins</option>
+              <option value="set-wins">Game/Set Wins</option>
+              <option value="set-win-percentage">Game/Set Win %</option>
+              <option value="set-difference">Game/Set W/L Difference</option>
+              <option value="points-scored">Points Scored</option>
+              <option value="points-difference">Points Difference</option>
+              <option value="win-tied">Wins vs Tied Participants</option>
+              <option value="median">Median-Buchholz system</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-row">
+      <button class="submit-btn" type="submit" [disabled]="form.invalid">Create Tournament</button>
+    </div>
+  </div>
+</form>

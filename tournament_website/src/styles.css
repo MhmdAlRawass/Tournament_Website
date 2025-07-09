@@ -24,3 +24,24 @@ body {
   background-color: var(--primary-bg);
   font-family: "Acme", sans-serif;
 }
+
+/* This targets the actual container created by Angular Material */
+
+.custom-dialog-container{
+  background: transparent !important;
+}
+
+.custom-dialog-container .mat-dialog-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  height: auto !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+/* .mat-mdc-dialog-surface::before {
+  background-color: #0f2b2d;
+} */

@@ -1,0 +1,120 @@
+<div class="group-stage-container">
+    <div class="start-group-stage-container">
+        <div class="lock-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+        </div>
+
+        <div class="start-info">
+            <span>Once your groups are arranged as you'd like and you're ready:</span>
+            <button class="start-btn">
+                Start The Group Stage
+            </button>
+        </div>
+    </div>
+
+    <div class="group-container">
+        <div class="group-wrapper">
+            <div class="group">
+                <div class="group-header">
+                    <div class="group-name">
+                        Group A
+                    </div>
+
+                    <div class="group-matches-tab-wrapper">
+                        <div class="group-matches-tab" *ngFor="let tab of tabs" [ngClass]="{active: groupTab === tab}"
+                            (click)="onPressedTab(tab)">
+                            {{tab | titlecase}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- If standings -->
+                <div class="standings-table-wrapper" *ngIf="groupTab === 'standings'">
+                    <table class="standings-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Team</th>
+                                <th>Wins</th>
+                                <th>Loses</th>
+                                <th>Match Diff</th>
+                                <th>Pts</th>
+                                <th>Match History</th>
+                            </tr>
+                        </thead>
+
+                        <!-- <tbody>
+                        <tr *ngFor="let stat of sortedGroupedStats[selectedGroup]; let i = index">
+                            <td>{{i+1}}</td>
+                            <td class="team-name">{{stat.name}}</td>
+                            <td>{{stat.matchWins}}</td>
+                            <td>{{stat.matchLosses}}</td>
+                            <td>{{stat.match_diffs || 0}}</td> 
+                            <td>{{stat.totalScore || 0}}</td>
+                            <td>
+                                <span *ngFor="let result of stat.history" class="badges-container">
+                                    <span [ngClass]="{
+                                        'win': result === 'W',
+                                        'loss': result === 'L',
+                                        'tie': result === 'T'
+                                        
+                                    }" class="badge" >
+                                        {{ result.toUpperCase() }}
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody> -->
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Ali</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ali</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ali</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ali</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- If matches -->
+                <div class="matches-wrapper" *ngIf="groupTab === 'matches'">
+                    <app-bracket></app-bracket>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

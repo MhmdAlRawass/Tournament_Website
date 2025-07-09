@@ -26,9 +26,14 @@
               "src/assets",
               "src/assets/ranking",
               "src/assets/images",
-              "src/assets/images/register"
+              "src/assets/images/register",
+              "src/assets/images/animations",
+              "src/assets/images/carousel",
+              "src/assets/videos",
+              "src/assets/images/home"
             ],
             "styles": [
+              "node_modules/quill/dist/quill.snow.css",
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css",
               "node_modules/jquery-bracket/dist/jquery.bracket.min.css"
@@ -36,25 +41,21 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/jquery-bracket/dist/jquery.bracket.min.js"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
+              "optimization": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.5MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "6kB",
+                  "maximumError": "12kB"
                 }
               ],
               "outputHashing": "all"
@@ -78,6 +79,52 @@
             }
           },
           "defaultConfiguration": "development"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/tournament_website/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            },
+            "development": {
+              "sourceMap": true,
+              "optimization": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "tournament_website:build",
+            "serverTarget": "tournament_website:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "tournament_website:build:production",
+              "serverTarget": "tournament_website:server:production"
+            },
+            "development": {
+              "browserTarget": "tournament_website:build:development",
+              "serverTarget": "tournament_website:server:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "browserTarget": "tournament_website:build:production",
+            "serverTarget": "tournament_website:server:production",
+            "routes": ["/"]
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"

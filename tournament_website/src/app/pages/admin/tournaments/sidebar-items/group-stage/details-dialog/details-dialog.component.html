@@ -1,0 +1,187 @@
+<div class="dialog-container">
+    <div class="header">
+        <div class="tabs-wrapper">
+            <div class="tab" [ngClass]="{active: selectedTab === tab}" *ngFor="let tab of tabs" (click)="onPressedChangeTab(tab)">
+                {{getTabTitle(tab)}}
+            </div>
+        </div>
+
+        <div class="close-btn" (click)="onPressedClose()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- If tab is match details -->
+    <ng-container *ngIf="selectedTab === 'match' && matchView === 'default' " >
+        <div class="match-details-wrapper">
+            <!-- player 1 -->
+            <div class="p-info-wrapper">
+                <div class="team-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                    </svg>
+                </div>
+
+                <div class="p-name">
+                    Abedalhameed AL Makdah & Amira Al Dirani
+                </div>
+
+                <div class="score-wrapper">
+                    2
+                </div>
+            </div>
+
+            <div class="vs-wrapper">
+                <div class="vs">
+                    vs
+                </div>
+            </div>
+
+            <!-- player 2 -->
+            <div class="p-info-wrapper">
+                <div class="team-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                    </svg>
+                </div>
+
+                <div class="p-name">
+                    Player 2
+                </div>
+
+                <div class="score-wrapper">
+                    1
+                </div>
+            </div>
+
+        </div>
+
+        <!-- If match is played -->
+        <div class="set-score-table" *ngIf="isMatchPlayed && matchView === 'default' ">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="table-p-name">P1</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td class="table-p-name">P2</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- If match is not played yet, you can set a specific time will be played on -->
+        <div class="set-time-wrapper" *ngIf="!isMatchPlayed && matchView === 'default'">
+            <div class="set-time-btn" (click)="onPressedSetTime()">
+                Set Playing Time
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- if opened set time screen -->
+    <ng-container *ngIf="selectedTab === 'match' && matchView === 'setTime'">
+        <div class="set-time-container">
+            <div class="form-input">
+            <label for="court">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+                Station
+            </label>
+            <input id="court" name="court" type="text" required />
+            <div class="input-note">Add where the player will play in which court</div>
+            </div>
+
+            <div class="form-input">
+            <label for="time">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Schedule time
+            </label>
+            <input id="time" name="time" type="datetime-local" required />
+            <div class="input-note">Add time match will be played</div>
+            </div>
+
+            <div class="form-actions">
+            <button class="confirm-btn" (click)="onConfirmSetTime()">Confirm</button>
+            <button class="cancel-btn" (click)="onPressedCancelSetTime()">Cancel</button>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedTab === 'report'">
+        <div class="report-container">
+            <div class="table-top">
+                <div class="remove-set-btn">
+                    Remove a Set
+                </div>
+                <div class="add-set-btn">
+                    Add a Set
+                </div>
+            </div>
+
+            <div class="score-table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="table-p-name">Participant</th>
+                        <th>Score</th>
+                        <th>Set 2</th>
+                        <th>Set 3</th>
+                        <th>Set 4</th>
+                        <th>Set 5</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="table-p-name">e</td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                    </tr>
+                    <tr>
+                        <td class="table-p-name">f</td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                        <td><input type="number" /></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="verify-winner-wrapper">
+                <h2>Verify the winner</h2>
+                <div class="p-list-wrapper">
+                    <div class="p-list">
+                        <span>E</span>
+                        <span class="active">-- Tie --</span>
+                        <span>F</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-btn-wrapper">
+                <div class="submit-btn">
+                    Submit Scores    
+                </div>
+            </div>
+
+
+        </div>
+    </ng-container>
+
+</div>

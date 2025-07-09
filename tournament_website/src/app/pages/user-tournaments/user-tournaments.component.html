@@ -1,0 +1,68 @@
+<!-- LOADING STATE -->
+<div *ngIf="isLoading" class="animation-container lottie-container">
+  <div #lottieContainer class="animation-box"></div>
+  
+</div>
+
+
+<div class="tournament-container" *ngIf="!isLoading">
+  <div class="tournament-header">
+    <div class="logo-container">
+      <img src="../../../assets/images/image.png" alt="">
+    </div>
+    <p>Buzz into Action – All Your Padel Events in One Hive</p>
+  </div>
+  <div class="tournament-card" *ngFor="let t of tournaments; let i = index;" >
+    <div class="tournament-left">
+      <img class="tournament-logo" src='assets/images/home-logo.jpeg' alt="Tournament Logo" />
+    </div>
+
+    <div class="tournament-center">
+      <h2 class="tournament-title">{{ t.name }}</h2>
+
+      <div class="info-line">
+        <span class="icon">⏳</span>
+        <span class="countdown" *ngIf="(t.startTime | countdown) !== 'Already started'">
+          Starts in {{ t.startTime | countdown }}
+        </span>
+        <span class="countdown" *ngIf="(t.startTime | countdown) === 'Already started'">
+          Already started
+        </span>
+      </div>
+
+      <div class="info-line">
+        <span class="icon"><mat-icon>calendar_today</mat-icon></span>
+        <span class="start-time">{{ t.startTime | date:'medium' }}</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <p class="stat-label">Entry/Player</p>
+          <p class="stat-value">$25</p>
+        </div>
+        <div class="stat-box">
+          <p class="stat-label">Max Teams</p>
+          <p class="stat-value">16</p>
+        </div>
+        <div class="stat-box">
+          <p class="stat-label">Enrolled</p>
+          <p class="stat-value">{{t.registeredParticipants}}</p>
+        </div>
+        <div class="stat-box">
+          <p class="stat-label">Category </p>
+          <p class="stat-value">{{category[i]}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tournament-right">
+      <p class="prize-label">🏆 PRIZE</p>
+      <p class="prize-amount">{{ prizes[i] }}</p>
+      <button mat-raised-button class="view-btn" (click)="viewTournamentDetails(t)">
+        View Tournament
+      </button>
+      <p class="prize-note">Top 2 Teams Win<br />Cash Prize + Gifts & Vouchers</p>
+    </div>
+  </div>
+
+</div>

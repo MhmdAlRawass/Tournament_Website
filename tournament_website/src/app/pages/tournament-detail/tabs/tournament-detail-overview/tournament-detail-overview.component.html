@@ -1,5 +1,5 @@
 <div class="overview-container" *ngIf="tournament; else notFound">
-    <div class="first-row">
+    <!-- <div class="first-row">
         @for (rank of rankingList; track $index) {
             <div class="rank-card">
                 <img [src]="'assets/ranking/' + rank.rank + getSuffix(rank.rank) + '.png'" 
@@ -12,7 +12,36 @@
                 </div>
             </div>
         }
+    </div> -->
+
+    <div class="first-row-updated">
+        @if (tournament.id === 16435768) {
+            <div class="d-section">
+            <h2 class="prizes-section-title">Category D</h2>
+            <div class="prizes-container">
+                <ul>
+                <li>1st Place: 400$ Cash + Gifts & Vouchers</li>
+                <li>2nd Place: 200$ Cash + Gifts & Vouchers</li>
+                </ul>
+            </div>
+            </div>
+        }
+
+        <div #lottieContainer class="prizes-animation" style="width: 300px; height: 300px;"></div>
+
+        @if (tournament.id === 16435836) {
+            <div class="e-section">
+            <h2 class="prizes-section-title">Category E</h2>
+            <div class="prizes-container">
+                <ul>
+                <li>1st Place: 250$ Cash + Gifts & Vouchers</li>
+                <li>2nd Place: 150$ Cash + Gifts & Vouchers</li>
+                </ul>
+            </div>
+            </div>
+        }
     </div>
+
 
 
     <div class="second-row">
@@ -32,7 +61,7 @@
     </div>
 
     <!-- Participants Section -->
-    <div class="participants-section">
+    <!-- <div class="participants-section">
         <h2 class="section-title">Participants</h2>
         <div class="participants-container">
         <div class="participants-card">
@@ -44,7 +73,7 @@
             }
         </div>
         </div>
-    </div>
+    </div> -->
 
     </div>
 
@@ -60,16 +89,16 @@
         <div class="rules-section">
             <h2>Rules</h2>
             <ul>
-            <li *ngFor="let rule of rulesList">{{ rule }}</li>
+                <li *ngFor="let rule of rulesList">{{ rule }}</li>
             </ul>
         </div>
 
-        <div class="prize-claim-section">
+        <!-- <div class="prize-claim-section">
             <h2>Prize Claim</h2>
             <ul>
             <li *ngFor="let claim of prizeClaimList">{{ claim }}</li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </div>
 

@@ -5,7 +5,7 @@
         <h1>{{ tournament.name }}</h1>
       </div>
       <div class="header-left-bottom">
-        <div class="info-box">
+        <!-- <div class="info-box">
           <mat-icon class="icon">access_time</mat-icon>
           <p>
             Starts in
@@ -13,20 +13,33 @@
               tournament.startTime | countdown
             }}</span>
           </p>
-        </div>
+        </div> -->
 
+        
         <div class="info-box">
           <mat-icon class="icon">calendar_today</mat-icon>
-          <p>{{ tournament.startTime | date : "MMM d yyyy : h:mm a" }}</p>
+          <p>{{ tournament.startTime | date : "MMM d yyyy  h:mm a" }}</p>
+        </div>
+        
+        <div class="info-box">
+          <div class="red-circle"></div>
+          <div class="text">
+            Live
+          </div>
         </div>
       </div>
     </div>
 
     <div class="header-right">
-      <h2 class="prize">Entry fee: $25</h2>
-      <button class="join-btn" (click)="onPressedJoin(tournament)">
-        JOIN NOW!
-      </button>
+      <h2 class="entry_fee"><span>Entry fee:</span> $25/person</h2>
+      <div class="reg-info">
+        <button class="join-btn"  >
+          REGISTER NOW!
+        </button>
+        <div class="countdown">
+          Registration Closed
+        </div>
+      </div>
       <!-- dont forget, it is for showing fully bracket here -->
       <!-- <button class="join-btn" style="margin-top: 10px;" (click)="onPressedShowBracket()">Show Full Bracket</button> -->
     </div>
@@ -36,18 +49,12 @@
     <ul>
       @for (tab of tabsList; track $index) {
       <li
-        [ngClass]="{ active: selectedTab === tab, disabled: tab === 'bracket' }"
-        (click)="tab !== 'bracket' && onSelectTab(tab)"
+        [ngClass]="{ active: selectedTab === tab, disabled: tab === '' }"
+        (click)="tab !== '' && onSelectTab(tab)"
 
         [ariaDisabled]="tab === 'overview'"
       >
         {{ tab | uppercase }}
-        <mat-icon
-          *ngIf="tab !== 'overview'"
-          class="lock-icon"
-          style="color: rgb(245, 95, 95)"
-          >lock</mat-icon
-        >
       </li>
       }
     </ul>

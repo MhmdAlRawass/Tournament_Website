@@ -1,41 +1,152 @@
-<div class="matches-container" *ngFor="let groupId of objectKeys(groupedStats); let i = index;">
-    <h2 class="group-title">{{getCustomGroupLabel(i)}}</h2>
+<div class="tabs-container">
+  <div
+    class="tab-card"
+    *ngFor="let tab of stageTabs"
+    [class.active]="selectedStageTab === tab"
+    [class.locked]="tab === 'final' && !finalStageAvailable"
+    (click)="(tab !== 'final' || finalStageAvailable) && changeStageTab(tab)"
+  >
+    <!-- If tab is 'final' and it's locked -->
+    <ng-container *ngIf="tab === 'final' && !finalStageAvailable" >
+      Final Stage 
+    </ng-container>
 
-    <table class="standings-table">
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Participant</th>
-                <th>Set Wins</th>
-                <th>Set Ties</th>
-                <th>Match W-L-T</th>
-                <th>Pts</th>
-                <th>Match History</th>
-            </tr>
-        </thead>
+    <!-- If tab is 'group' or 'Groups' -->
+    <ng-container *ngIf="tab === 'Rounds' || tab === 'Groups'">
+      {{ tab | titlecase }}
+    </ng-container>
 
-        <tbody>
-            <tr *ngFor="let stat of groupedStats[groupId]">
-                <td>Rank</td>
-                <td>{{stat.name}}</td>
-                <td>{{stat.setWins}}</td>
-                <td>{{stat.matchTies}}</td>
-                <td>{{stat.matchWins}}-{{stat.matchLosses}}-{{stat.matchTies}}</td>
-                <td>{{stat.totalScore}}</td>
-                <td>
-                    <span *ngFor="let result of stat.history">
-                        <span [ngClass]="{
-                            'win': result === 'W',
-                            'loss': result === 'L',
-                            'tie': result === 'T'
-                            
-                        }" >
-                            {{ result.toUpperCase() }}
-                        </span>
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
+    <!-- If tab is 'final' and it's available -->
+    <ng-container *ngIf="tab === 'final' && finalStageAvailable">
+      Final Stage
+    </ng-container>
+  </div>
 </div>
+
+
+<!-- Group Rounds -->
+@if (selectedStageTab === 'Rounds') {
+<div *ngFor="let groupId of getGroupStageIds(); let i = index" class="group-block">
+  <h2 class="group-title">{{ getCustomGroupLabel(i) }}</h2>
+
+  <div class="bracket-wrapper">
+    <div *ngFor="let round of getSortedRounds(groupId); let r = index" class="bracket-column">
+      <h3 class="round-title">Round {{ round }}</h3>
+
+      <div class="bracket-matches">
+        <div *ngFor="let match of groupedMatches[groupId][round]; let matchIndex = index" class="match-card">
+          
+          <!-- Match time -->
+          <ng-container *ngIf="timePlayingRounds?.[tournament.id]?.[i]?.[round] as matchTimes">
+            <div class="match-time" *ngIf="matchTimes?.[matchIndex]">
+              {{ matchTimes[matchIndex] }}
+            </div>
+          </ng-container>
+
+
+          <!-- Player 1 Row -->
+          <div class="match-row">
+            <span class="player-name">{{ getPlayerName(match.player1_id) }}</span>
+            <div class="player-sets-wrapper" #scrollWrapper1 (scroll)="syncScroll(scrollWrapper1, scrollWrapper2)">
+              <div class="player-sets">
+                <ng-container *ngIf="getSetScores(match.scores_csv).length; else noScore">
+                  <span class="set" *ngFor="let set of getSetScores(match.scores_csv)">{{ set[0] }}</span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <!-- Player 2 Row -->
+          <div class="match-row">
+            <span class="player-name">{{ getPlayerName(match.player2_id) }}</span>
+            <div class="player-sets-wrapper" #scrollWrapper2 (scroll)="syncScroll(scrollWrapper2, scrollWrapper1)">
+              <div class="player-sets">
+                <ng-container *ngIf="getSetScores(match.scores_csv).length; else noScore">
+                  <span class="set" *ngFor="let set of getSetScores(match.scores_csv)">{{ set[1] }}</span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+}
+
+<!-- Final Stage -->
+@else if(selectedStageTab ==='final') {
+<!-- <div class="container">
+  <div class="full-container" #fullscreenContainer>
+
+    <div class="theme theme-dark-trendy fullscreen-container">
+      <div class="bracket disable-image">
+        <div class="column" *ngFor="let round of bracketData">
+          <div class="match" *ngFor="let match of round.matches" [ngClass]="match.winner === 'top' ? 'winner-top' : 'winner-bottom'">
+            <div class="match-top team">
+              
+              <span class="seed">{{ match.top.seed }}</span>
+              <span class="name">{{ isWaitingWinner(match.top.name) ? 'N/A' : match.top.name  }}</span>
+              <span class="score">{{ isValidScore(match.top.score) ? match.top.score : 0 }}</span>
+            </div>
+            <div class="match-bottom team">
+              
+              <span class="seed">{{ match.bottom.seed }}</span>
+              <span class="name">{{ isWaitingWinner(match.bottom.name) ? 'N/A' : match.bottom.name }}</span>
+              <span class="score">{{ isValidScore(match.bottom.score) ? match.bottom.score : 0 }}</span>
+            </div>
+
+            <div class="match-lines">
+              <div class="line one"></div>
+              <div class="line two"></div>
+            </div>
+            <div class="match-lines alt">
+              <div class="line one"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div> -->
+
+<app-tournament-full-bracket></app-tournament-full-bracket>
+}
+
+@else {
+  <div class="groups-container">
+    <div class="group-card" *ngFor="let groupId of getGroupStageIds(); let i = index">
+      
+      <div class="group-card-header">
+        {{ getCustomGroupLabel(i) }}
+      </div>
+
+      <!-- Safely display time if available -->
+      <div class="match-time groups-tab-time" *ngIf="timePlaying?.[tournament.id]?.[i] as groupTime">
+        {{ groupTime }}
+      </div>
+
+      <!-- Optional fallback if no time is set -->
+      <div class="match-time" *ngIf="!timePlaying?.[tournament.id]?.[i]">
+        Time: TBA
+      </div>
+
+      <ul class="group-card-list">
+        <li *ngFor="let p of getParticipantsByGroup(groupId)">
+          {{ getPlayerName(p.group_player_ids[0]) }}
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+
+}
+
+<!-- Score Fallback Template -->
+<ng-template #noScore>
+  <span class="set">N/A</span>
+</ng-template>

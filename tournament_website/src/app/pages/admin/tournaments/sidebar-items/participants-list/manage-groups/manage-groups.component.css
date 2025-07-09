@@ -1,0 +1,230 @@
+* {
+  box-sizing: border-box;
+}
+
+.groups-container {
+  padding: 1rem;
+  height: 79vh;
+  overflow-y: auto;
+}
+
+/* Header */
+.groups-header {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Buttons */
+.add-btn,
+.auto-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  background-color: white;
+  border: 1px solid #cdcdcd;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.add-btn:hover,
+.auto-btn:hover {
+  background-color: #cdcdcd;
+}
+
+.add-btn:focus,
+.auto-btn:focus {
+  background-color: #acacac;
+  border: 1px solid var(--accent-cyan);
+}
+
+.add-btn svg,
+.auto-btn svg {
+  width: 20px;
+  height: auto;
+}
+
+/* Note container (empty state) */
+.note-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.note-container svg {
+  width: 70px;
+  height: auto;
+}
+
+.note-container .note-add-btn svg {
+  width: 20px;
+}
+
+.btn-group {
+  display: grid;
+  justify-content: center;
+  grid-gap: 0.4rem;
+}
+
+.btn-group .note-add-btn {
+  background-color: var(--accent-cyan);
+  color: white;
+  font-weight: bold;
+}
+
+.btn-group .note-add-btn:hover {
+  opacity: 0.8;
+}
+
+/* Grid layout for groups */
+.groups-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* cdkDropList wrapper around group */
+.group-wrapper {
+  /* Needed to not affect layout when cdkDropList is applied */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Group box styling */
+.group {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.group:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Group header */
+.group .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.group .top-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.group .top-left .g-name {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.group .top-left .p-length {
+  font-size: 0.9rem;
+  color: #10b981;
+}
+
+.group .top-right svg {
+  width: 20px;
+  height: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.group .top-right svg:hover {
+  color: #111827;
+}
+
+/* Assign button */
+.assign-btn {
+  padding: 0.5rem 1rem;
+  background-color: #0ea5e9;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.assign-btn:hover {
+  background-color: #0284c7;
+}
+
+/* Participants list */
+[cdkDrag] {
+  display: block;
+  /* Ensures cdk wrapper doesn't break flex */
+}
+
+/* Individual draggable item */
+.participants-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  background-color: #fff;
+  border: 1px solid #e5e7eb; /* light gray */
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.participants-wrapper:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.participants-wrapper:active,
+.participants-wrapper:focus {
+  cursor: grabbing;
+  background-color: #f3f4f6;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.participants-wrapper:last-child {
+  border-bottom: none;
+}
+
+/* Icon styling */
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Seed ID */
+.seed {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #374151;
+  min-width: 30px;
+}
+
+/* Name + details */
+.details {
+  font-size: 0.8rem;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+}

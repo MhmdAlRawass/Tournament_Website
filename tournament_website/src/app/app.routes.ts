@@ -3,16 +3,23 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 import { TournamentsComponent } from './pages/admin/tournaments/tournaments.component';
-import { HomeComponent } from './pages/home/home.component';
+import { UserTournamentsComponent } from './pages/user-tournaments/user-tournaments.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { TournamentDetailComponent } from './pages/tournament-detail/tournament-detail.component';
 import { TournamentFullBracketComponent } from './pages/tournament-detail/tournament-full-bracket/tournament-full-bracket.component';
 import { RegisterTournamentComponent } from './pages/register-tournament/register-tournament.component';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminGuard } from './pages/admin/guards/admin.guard';
-import { ParticipantsListComponent } from './pages/admin/participants-list/participants-list.component';
 
 import { AdminsListComponent } from './pages/admin/admins-list/admins-list.component';
+import { PaymentManagementComponent } from './pages/admin/tournaments/sidebar-items/payment-management/payment-management.component';
+import { TournamentOverviewComponent } from './pages/admin/tournaments/sidebar-items/tournament-overview/tournament-overview.component';
+import { ParticipantsListComponent } from './pages/admin/tournaments/sidebar-items/participants-list/participants-list.component';
+import { CreateTournamentComponent } from './pages/admin/tournaments/create-tournament/create-tournament.component';
+import { GroupStageComponent } from './pages/admin/tournaments/sidebar-items/group-stage/group-stage.component';
+import { FinalStageComponent } from './pages/admin/tournaments/sidebar-items/final-stage/final-stage.component';
+import { SponsorsListComponent } from './pages/admin/tournaments/sidebar-items/sponsors-list/sponsors-list.component';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
   // public routes
@@ -22,6 +29,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'tournaments', component: UserTournamentsComponent },
       { path: 'tournament/register', component: RegisterTournamentComponent },
       { path: 'tournament/:id', component: TournamentDetailComponent },
       {
@@ -40,9 +48,31 @@ export const routes: Routes = [
     children: [
       // { path: 'dashboard', component: DashboardComponent },
       // { path: 'users', component: UsersComponent },
-      // { path: 'tournaments', component: TournamentsComponent },
-      { path: 'participants', component: ParticipantsListComponent },
       { path: 'admins', component: AdminsListComponent },
+      { path: 'tournaments', component: TournamentsComponent },
+      { path: 'tournament/create', component: CreateTournamentComponent },
+
+      { path: 'tournament/:id', component: TournamentOverviewComponent },
+      {
+        path: 'tournament/:id/participants',
+        component: ParticipantsListComponent,
+      },
+      {
+        path: 'tournament/:id/payment-management',
+        component: PaymentManagementComponent,
+      },
+      {
+        path: 'tournament/:id/groups',
+        component: GroupStageComponent,
+      },
+      {
+        path: 'tournament/:id/final',
+        component: FinalStageComponent,
+      },
+      {
+        path: 'tournament/:id/sponsors',
+        component: SponsorsListComponent,
+      },
     ],
   },
 ];

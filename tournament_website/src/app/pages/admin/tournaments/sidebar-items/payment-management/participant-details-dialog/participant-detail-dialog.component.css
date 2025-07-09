@@ -1,0 +1,120 @@
+
+* {
+  box-sizing: border-box;
+}
+
+.admin-dialog-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px var(--shadow-color);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  animation: fadeIn 0.25s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-header h2 {
+  font-size: 1.5rem;
+  color: var(--accent-cyan);
+  margin: 0;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: black;
+}
+
+.form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.form-section input,
+.form-section select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--text-muted);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+.form-section input:focus,
+.form-section select:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.form-bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.cancel-btn,
+.record-payment-btn {
+  padding: 0.55rem 1.3rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancel-btn {
+  background-color: var(--text-muted);
+  color: var(--text-light);
+}
+
+.cancel-btn:hover {
+  background-color: #888;
+}
+
+.record-payment-btn {
+  background-color: var(--accent-cyan);
+  color: white;
+}
+
+.record-payment-btn:hover {
+  background-color: #17b3b6;
+}

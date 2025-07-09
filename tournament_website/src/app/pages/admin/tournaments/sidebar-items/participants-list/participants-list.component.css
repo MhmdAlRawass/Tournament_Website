@@ -1,0 +1,283 @@
+/* Base Layout */
+.teams-page {
+  padding: 2rem;
+  background: #f8fafc;
+}
+
+.teams-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.teams-header.groupsTab {
+  justify-content: space-between;
+}
+
+.header-left {
+  min-width: 250px; 
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+}
+
+
+.page-title {
+  font-size: 1.6rem;
+  color: #0f172a;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* Search & Filters */
+.teams-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-input {
+  padding: 0.5rem 2rem 0.5rem 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.search-icon {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+.filters select {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-size: 0.9rem;
+}
+
+/* View toggle */
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-btn {
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background-color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.csv-btn {
+  background:linear-gradient(135deg, #27ae60, #2ecc71);
+
+}
+
+.view-btn:hover {
+  background-color: #0ea5e9;
+  color: white;
+  border-color: #0ea5e9;
+}
+
+.csv-btn:hover{
+  background:linear-gradient(135deg, #27ae5fc1, #2ecc70c1);
+  color: black;
+  /* border: none; */
+  border-color: #27ae60;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Table */
+.teams-view {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.teams-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.teams-table th,
+.teams-table td {
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.teams-table th {
+  color: #334155;
+}
+
+.teams-table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* actions */
+.actions-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.actions-column .action-btn {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background-color 0.2s;
+  color: #555;
+  cursor: pointer;
+}
+
+.actions-column .action-btn:hover {
+  border-color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+}
+
+.actions-column mat-icon {
+  font-size: 20px;
+}
+
+
+
+/* Cards */
+.cards-view {
+  display: none;
+}
+
+.cards-view.active {
+  display: block;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination-btn {
+  background-color: white;
+  border: 1px solid #cbd5e1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f1f5f9;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tabs-wrapper {
+  display: flex;
+  gap: 0.8rem;
+  background-color: #f1f5f9;
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
+  min-width: 300px;
+}
+
+.tab {
+  position: relative;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #475569;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  background-color: #e2e8f0;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #0ea5e9;
+  transition: width 0.3s ease;
+}
+
+.tab:hover::after {
+  width: 100%;
+}
+
+/* Show underline when active */
+.tab.active {
+  background-color: #0ea5e9;
+  color: white;
+}
+.tab.active::after {
+  width: 100%;
+}
+
+/* groups wrapper */
+.groups-wrapper {
+  height: 100%;
+  width: 100%;
+}
+

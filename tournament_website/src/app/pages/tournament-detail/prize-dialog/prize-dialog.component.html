@@ -1,0 +1,59 @@
+<!-- Background CSS particles -->
+<div id="particles"></div>
+
+<!-- tsparticles-confetti canvas -->
+<canvas
+  id="tsparticles-confetti-canvas"
+  style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+  "
+></canvas>
+
+<!-- Popup -->
+<div class="popup-overlay show" id="prizePopup" *ngIf="isVisible">
+  <div class="popup" [@fadeInOut]>
+    <button class="popup-close" (click)="closePopup()">×</button>
+
+    <div class="popup-top">
+      <div class="logo-container first-img">
+        <img src="../../../../assets/images/register/logo-register.PNG" alt="Team 1 Logo" />
+      </div>
+
+      <span class="versus">
+        <img src="../../../../assets/images/versus.webp" alt="" />
+      </span>
+
+      <div class="logo-container">
+        <img src="../../../../assets/images/logo_padel_square.png" alt="Team 2 Logo" />
+      </div>
+    </div>
+
+    <h1>Rythms & Rackets</h1>
+
+    <div class="prize-section">
+      <div class="prize-label">Total Prize Pool</div>
+      <div class="prize-amount-container">
+        <div class="prize-amount">$1,500 </div>
+        <div class="prize-continue">Including Gifts & Vouchers</div>
+      </div>
+    </div>
+
+    <p class="description">
+      Step into the most prestigious padel showdown of the summer. Fierce competition, elite courts, and your shot at winning big
+      awaits!
+    </p>
+
+    <div class="popup-bottom">
+      <button class="cta-button" (click)="navigateToRegister()">
+        <span>Secure Your Spot</span>
+      </button>
+      <div class="countdown">Registration Closed</div>
+    </div>
+  </div>
+</div>

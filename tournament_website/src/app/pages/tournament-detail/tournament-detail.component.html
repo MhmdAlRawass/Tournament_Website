@@ -1,16 +1,16 @@
-<!-- isLoading STATE -->
-<div *ngIf="isLoading" class="container">
-  <p class="isLoading-text">Loading tournament...</p>
+<!-- LOADING STATE -->
+<div *ngIf="isLoading" class="full-center">
+  <div #lottieContainer class="animation-box"></div>
 </div>
 
 <!-- ERROR STATE -->
-<div *ngIf="!isLoading && isError" class="container">
+<div *ngIf="!isLoading && isError" class="full-center">
   <p class="error-text">Failed to load tournament. Please try again later.</p>
 </div>
 
 <!-- SUCCESS STATE -->
-<div *ngIf="!isLoading && tournament" class="container">
-  <!-- Header card -->
+<div *ngIf="!isLoading && tournament" class="main-container">
+  <!-- Header -->
   <div class="header">
     <app-tournament-detail-header
       [tournament]="tournament"
@@ -18,32 +18,32 @@
     ></app-tournament-detail-header>
   </div>
 
-  <!-- Body -->
+  <!-- Tab Content -->
   <div class="tab-content">
     <app-tournament-detail-overview
       *ngIf="selectedTab === 'overview'"
       [tournament]="tournament"
     ></app-tournament-detail-overview>
 
-    <app-tournament-detail-bracket
-      *ngIf="selectedTab === 'bracket'"
+    <app-tournament-detail-matches
+      *ngIf="selectedTab === 'matches'"
       [tournament]="tournament"
       [matches]="matches"
       [participants]="participants"
       [groupedMatches]="groupedMatches"
-    ></app-tournament-detail-bracket>
+    ></app-tournament-detail-matches>
 
     <app-tournament-detail-participants
-      *ngIf="selectedTab === 'participants'"
+      *ngIf="selectedTab === 'teams'"
       [tournament]="tournament"
       [participants]="participants"
     ></app-tournament-detail-participants>
 
-    <app-tournament-detail-matches
-      *ngIf="selectedTab === 'matches'"
+    <app-tournament-detail-standings
+      *ngIf="selectedTab === 'standings'"
       [tournament]="tournament"
       [groupedStats]="groupedStats"
-    ></app-tournament-detail-matches>
+    ></app-tournament-detail-standings>
 
     <app-test-bracket
       *ngIf="selectedTab === 'test-bracket'"
